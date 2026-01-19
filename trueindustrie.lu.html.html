@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRUE.INDUSTRIES | Wealth Performance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#C5A059',
+                            dark: '#0B1120',
+                            navy: '#131C31',
+                            light: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(197, 160, 89, 0.15) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .clip-slant {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .clip-slant-reverse {
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+        }
+        .clip-chevron {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+        }
+        
+        /* Markdown-style list reset within AI output */
+        .ai-output ul { list-style-type: disc; margin-left: 1.5rem; margin-top: 0.5rem; }
+        .ai-output li { margin-bottom: 0.25rem; }
+        .ai-output strong { color: #C5A059; }
+        
+        /* Custom Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #C5A059;
+            cursor: pointer;
+            margin-top: -6px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #374151;
+            border-radius: 2px;
+        }
+        input[type=range]:focus {
+            outline: none; 
+        }
+        
+        /* Navigation Active State */
+        .nav-link.active {
+            color: #C5A059;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-white font-sans antialiased overflow-x-hidden flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <div class="flex items-center space-x-2 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-8 h-8 bg-brand-gold rounded-sm flex items-center justify-center">
+                        <span class="font-display font-bold text-brand-dark text-xl">T</span>
+                    </div>
+                    <span class="font-display font-bold text-xl md:text-2xl tracking-wide">TRUE.INDUSTRIES</span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-xs md:text-sm font-semibold tracking-wider">
+                    <button onclick="navigateTo('home')" class="nav-link hover:text-brand-gold transition-colors text-white">HOME</button>
+                    <button onclick="navigateTo('athletes')" class="nav-link hover:text-brand-gold transition-colors text-white">ATHLETES</button>
+                    <button onclick="navigateTo('families')" class="nav-link hover:text-brand-gold transition-colors text-white">FAMILIES & ENTREPRENEURS</button>
+                    <button onclick="navigateTo('team')" class="nav-link hover:text-brand-gold transition-colors text-white">TEAM</button>
+                    <button onclick="navigateTo('contact')" class="bg-brand-gold text-brand-dark px-5 py-2 rounded hover:bg-white transition-colors">CONTACT</button>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-white">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-navy border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <button onclick="navigateTo('home')" class="block w-full text-left py-2 hover:text-brand-gold">Home</button>
+                <button onclick="navigateTo('athletes')" class="block w-full text-left py-2 hover:text-brand-gold">Athletes</button>
+                <button onclick="navigateTo('families')" class="block w-full text-left py-2 hover:text-brand-gold">Families & Entrepreneurs</button>
+                <button onclick="navigateTo('team')" class="block w-full text-left py-2 hover:text-brand-gold">Team</button>
+                <button onclick="navigateTo('contact')" class="block w-full text-left py-2 text-brand-gold font-bold">Contact Us</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main id="main-content" class="flex-grow pt-16 md:pt-20">
+
+        <!-- ============================================== -->
+        <!-- VIEW 1: HOME (Landing Page) -->
+        <!-- ============================================== -->
+        <div id="view-home" class="page-view animate-fade-in">
+            <section class="relative min-h-[90vh] flex items-center justify-center hero-pattern py-12 md:py-20">
+                <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-navy to-transparent opacity-50 z-0"></div>
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-white mb-6 md:mb-8">
+                        INDEPENDENT.<br/>
+                        TRANSPARENT.<br/>
+                        <span class="text-brand-gold">TRUE.</span>
+                    </h1>
+                    
+                    <p class="text-base md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8 md:mb-12">
+                        True.industries is an independent financial support boutique based in Luxembourg. We help athletes, entrepreneurs, and international families in upping their game with full integrity in a complex financial world – be it on the pitch, in the boardroom or in life.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
+                        <!-- Card 1 -->
+                        <div onclick="navigateTo('athletes')" class="group cursor-pointer bg-brand-navy/50 border border-white/10 p-6 md:p-8 rounded-xl hover:border-brand-gold hover:-translate-y-2 transition-all duration-300 relative overflow-hidden flex flex-col h-full">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fas fa-running text-6xl md:text-8xl text-brand-gold"></i>
+                            </div>
+                            <div class="relative z-10 text-left flex flex-col h-full">
+                                <h3 class="font-display text-xl md:text-2xl font-bold mb-2">ATHLETES</h3>
+                                <p class="text-gray-400 text-sm mb-4 flex-grow">Maximize career earnings and secure your post-game legacy.</p>
+                                <span class="text-brand-gold font-bold text-sm group-hover:underline mt-auto block">EXPLORE <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div onclick="navigateTo('families')" class="group cursor-pointer bg-brand-navy/50 border border-white/10 p-6 md:p-8 rounded-xl hover:border-brand-gold hover:-translate-y-2 transition-all duration-300 relative overflow-hidden flex flex-col h-full">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fas fa-globe text-6xl md:text-8xl text-brand-gold"></i>
+                            </div>
+                            <div class="relative z-10 text-left flex flex-col h-full">
+                                <h3 class="font-display text-xl md:text-2xl font-bold mb-2">FAMILIES & ENTREPRENEURS</h3>
+                                <p class="text-gray-400 text-sm mb-4 flex-grow">Deal financing, succession planning, and multi-jurisdictional wealth structuring.</p>
+                                <span class="text-brand-gold font-bold text-sm group-hover:underline mt-auto block">EXPLORE <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div onclick="navigateTo('team')" class="group cursor-pointer bg-brand-navy/50 border border-white/10 p-6 md:p-8 rounded-xl hover:border-brand-gold hover:-translate-y-2 transition-all duration-300 relative overflow-hidden flex flex-col h-full">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fas fa-users text-6xl md:text-8xl text-brand-gold"></i>
+                            </div>
+                            <div class="relative z-10 text-left flex flex-col h-full">
+                                <h3 class="font-display text-xl md:text-2xl font-bold mb-2">THE TEAM</h3>
+                                <p class="text-gray-400 text-sm mb-4 flex-grow">Meet the experts dedicated to your financial success and peace of mind.</p>
+                                <span class="text-brand-gold font-bold text-sm group-hover:underline mt-auto block">MEET US <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW 2: ATHLETES -->
+        <!-- ============================================== -->
+        <div id="view-athletes" class="page-view hidden">
+            <!-- Hero Section -->
+            <header class="relative min-h-screen flex items-center justify-center py-12 md:py-20 hero-pattern clip-slant">
+                <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-navy to-transparent opacity-50 z-0"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-brand-gold/10 rounded-full blur-3xl z-0"></div>
+
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-stretch justify-between gap-8 md:gap-12">
+                    <div class="md:w-1/2 text-center md:text-left flex flex-col justify-between py-2">
+                        <div>
+                            <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-none tracking-tight text-white">
+                                360° FINANCIAL<br/>
+                                PERFORMANCE<br/>
+                                <span class="text-brand-gold">FOR ELITE ATHLETES</span>
+                            </h1>
+                        </div>
+                        <div class="py-10 md:py-12">
+                            <p class="text-base md:text-lg text-gray-400 max-w-lg leading-relaxed mx-auto md:mx-0">
+                                In a complex financial world, we support athletes from their first contract to their lasting legacy. Integrity, empowerment and performance drive us.
+                            </p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                            <a href="#contact" onclick="navigateTo('contact')" class="bg-brand-gold text-brand-dark font-bold py-3 md:py-4 px-6 md:px-8 rounded hover:bg-white transition-all transform hover:-translate-y-1 shadow-lg shadow-brand-gold/20 text-center w-full sm:w-auto">
+                                START YOUR STRATEGY
+                            </a>
+                            <a href="#lifecycle" class="border border-white/20 hover:border-brand-gold hover:text-brand-gold text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded transition-all text-center w-full sm:w-auto">
+                                EXPLORE THE PATH
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-5/12 relative hidden md:block">
+                        <div class="aspect-[4/5] bg-brand-navy rounded-2xl border border-white/10 p-6 relative shadow-2xl overflow-hidden group h-full">
+                            <div class="absolute top-0 left-0 w-full h-full opacity-10" style="background-image: linear-gradient(0deg, transparent 24%, #ffffff 25%, #ffffff 26%, transparent 27%, transparent 74%, #ffffff 75%, #ffffff 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, #ffffff 25%, #ffffff 26%, transparent 27%, transparent 74%, #ffffff 75%, #ffffff 76%, transparent 77%, transparent); background-size: 50px 50px;"></div>
+                            <div class="relative z-10 h-full flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <i class="fas fa-shield-alt text-4xl text-brand-gold"></i>
+                                    <div class="text-right">
+                                        <div class="text-xs text-gray-400 uppercase tracking-widest">Status</div>
+                                        <div class="font-display text-xl font-bold text-white">GAME ON</div>
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="bg-white/5 p-4 rounded border-l-4 border-brand-gold">
+                                        <h3 class="font-bold text-sm text-gray-300 mb-1">ASSET MANAGEMENT</h3>
+                                        <div class="h-1 w-full bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-brand-gold w-3/4"></div></div>
+                                    </div>
+                                    <div class="bg-white/5 p-4 rounded border-l-4 border-blue-500">
+                                        <h3 class="font-bold text-sm text-gray-300 mb-1">RISK PROTECTION</h3>
+                                        <div class="h-1 w-full bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-blue-500 w-2/3"></div></div>
+                                    </div>
+                                    <div class="bg-white/5 p-4 rounded border-l-4 border-green-500">
+                                        <h3 class="font-bold text-sm text-gray-300 mb-1">TAX OPTIMIZATION</h3>
+                                        <div class="h-1 w-full bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-green-500 w-5/6"></div></div>
+                                    </div>
+                                </div>
+                                <div class="text-center pt-4 border-t border-white/10">
+                                    <p class="text-sm font-semibold text-brand-gold">"Treat your wealth like your sport"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- The Problem Section -->
+            <section id="problem" class="py-16 md:py-20 bg-brand-navy">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                        <div>
+                            <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">THE GAME ENDS.<br/><span class="text-red-500">THE BILLS DON'T.</span></h2>
+                            <p class="text-gray-300 text-base md:text-lg mb-6 leading-relaxed">
+                                Earning years are short. Retirement years are long. Planning is urgent. The reality is harsh for those unprepared.
+                            </p>
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <div class="bg-red-500/10 p-3 rounded text-red-500 mr-4 mt-1"><i class="fas fa-exclamation-triangle"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-lg md:text-xl">72%</h4>
+                                        <p class="text-gray-400 text-sm">Of athletes are concerned about their financial future after retirement.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-red-500/10 p-3 rounded text-red-500 mr-4 mt-1"><i class="fas fa-user-injured"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-white">Career Risks</h4>
+                                        <p class="text-gray-400 text-sm">Unexpected injuries or loss of license can end income streams instantly.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-red-500/10 p-3 rounded text-red-500 mr-4 mt-1"><i class="fas fa-users-slash"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-white">The "Parasite" Effect</h4>
+                                        <p class="text-gray-400 text-sm">Bad advice and hangers-on deplete wealth faster than you earn it.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <div class="bg-brand-dark p-6 md:p-8 rounded-xl border border-white/5 shadow-2xl relative z-10">
+                                <h3 class="font-display text-xl md:text-2xl font-bold mb-6 text-center">YOU NEED A COACH</h3>
+                                <p class="text-gray-400 mb-6 text-center text-sm md:text-base">
+                                    You wouldn't step onto the field without a coach, a strategy and discipline. Why manage your wealth without the same level of professional support?
+                                </p>
+                                <hr class="border-white/10 mb-6" />
+                                <div class="grid grid-cols-2 gap-4 text-center">
+                                    <div class="p-3 md:p-4 bg-white/5 rounded"><i class="fas fa-chess-king text-brand-gold text-2xl mb-2"></i><div class="font-bold text-xs md:text-sm">STRATEGY</div></div>
+                                    <div class="p-3 md:p-4 bg-white/5 rounded"><i class="fas fa-balance-scale text-brand-gold text-2xl mb-2"></i><div class="font-bold text-xs md:text-sm">DISCIPLINE</div></div>
+                                    <div class="p-3 md:p-4 bg-white/5 rounded"><i class="fas fa-chart-line text-brand-gold text-2xl mb-2"></i><div class="font-bold text-xs md:text-sm">PERFORMANCE</div></div>
+                                    <div class="p-3 md:p-4 bg-white/5 rounded"><i class="fas fa-eye text-brand-gold text-2xl mb-2"></i><div class="font-bold text-xs md:text-sm">VISION</div></div>
+                                </div>
+                            </div>
+                            <div class="absolute -top-4 -right-4 w-full h-full border-2 border-brand-gold/20 rounded-xl z-0 hidden md:block"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lifecycle Scheme Section -->
+            <section id="lifecycle" class="py-16 md:py-24 bg-brand-dark relative overflow-hidden">
+                <div class="absolute top-1/2 left-0 w-full h-px bg-white/10 -translate-y-1/2 hidden md:block"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="text-center mb-12 md:mb-16">
+                        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">FROM ROOKIE TO LEGEND</h2>
+                        <p class="text-gray-400">Your financial needs change as your career evolves. We stay with you at every step.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+                        <div class="group relative bg-brand-navy p-6 rounded-lg border border-white/5 hover:border-brand-gold transition-all hover:-translate-y-2">
+                            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-dark border border-brand-gold text-brand-gold text-xs font-bold px-3 py-1 rounded-full uppercase">Stage 1</div>
+                            <div class="h-12 w-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors"><i class="fas fa-seedling"></i></div>
+                            <h3 class="font-display text-xl font-bold text-center mb-3">ROOKIE</h3>
+                            <ul class="text-sm text-gray-400 space-y-2"><li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2 text-xs"></i> Build good habits</li><li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2 text-xs"></i> Protect against risks</li></ul>
+                        </div>
+                        <div class="group relative bg-brand-navy p-6 rounded-lg border border-white/5 hover:border-brand-gold transition-all hover:-translate-y-2">
+                            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-dark border border-brand-gold text-brand-gold text-xs font-bold px-3 py-1 rounded-full uppercase">Stage 2</div>
+                            <div class="h-12 w-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors"><i class="fas fa-trophy"></i></div>
+                            <h3 class="font-display text-xl font-bold text-center mb-3">PEAK PERFORMANCE</h3>
+                            <ul class="text-sm text-gray-400 space-y-2"><li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2 text-xs"></i> Maximize revenue</li><li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2 text-xs"></i> Secure assets</li></ul>
+                        </div>
+                        <div class="group relative bg-brand-navy p-6 rounded-lg border border-white/5 hover:border-brand-gold transition-all hover:-translate-y-2">
+                            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-dark border border-brand-gold text-brand-gold text-xs font-bold px-3 py-1 rounded-full uppercase">Stage 3</div>
+                            <div class="h-12 w-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors"><i class="fas fa-exchange-alt"></i></div>
+                            <h3 class="font-display text-xl font-bold text-center mb-3">TRANSITION</h3>
+                            <ul class="text-sm text-gray-400 space-y-2"><li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2 text-xs"></i> Plan second career</li><li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2 text-xs"></i> Prepare for change</li></ul>
+                        </div>
+                        <div class="group relative bg-brand-navy p-6 rounded-lg border border-white/5 hover:border-brand-gold transition-all hover:-translate-y-2">
+                            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-dark border border-brand-gold text-brand-gold text-xs font-bold px-3 py-1 rounded-full uppercase">Stage 4</div>
+                            <div class="h-12 w-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors"><i class="fas fa-crown"></i></div>
+                            <h3 class="font-display text-xl font-bold text-center mb-3">LEGEND</h3>
+                            <ul class="text-sm text-gray-400 space-y-2"><li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2 text-xs"></i> Sustain wealth</li><li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2 text-xs"></i> Secure legacy</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Scheme: 360 Grid -->
+            <section id="offering" class="py-16 md:py-20 bg-brand-navy clip-slant-reverse pb-24 md:pb-32">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12 md:mb-16">
+                        <span class="text-brand-gold font-bold tracking-wider text-sm uppercase">Our Strategy</span>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold mt-2">COMPLETE DEFENSIVE & OFFENSIVE STRATEGY</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                        <div class="flex bg-brand-dark p-5 md:p-6 rounded-xl border border-white/5 hover:border-brand-gold/50 transition-colors">
+                            <div class="flex-shrink-0 mr-4 md:mr-6"><div class="w-12 h-12 md:w-16 md:h-16 bg-brand-navy rounded-full flex items-center justify-center border border-brand-gold/30"><i class="fas fa-chart-pie text-xl md:text-2xl text-brand-gold"></i></div></div>
+                            <div><h3 class="font-display text-lg md:text-xl font-bold mb-2">ASSET MANAGEMENT</h3><p class="text-gray-400 text-xs md:text-sm">Personalized investment strategies with regulated partners that grow your wealth while you sleep.</p></div>
+                        </div>
+                        <div class="flex bg-brand-dark p-5 md:p-6 rounded-xl border border-white/5 hover:border-brand-gold/50 transition-colors">
+                            <div class="flex-shrink-0 mr-4 md:mr-6"><div class="w-12 h-12 md:w-16 md:h-16 bg-brand-navy rounded-full flex items-center justify-center border border-brand-gold/30"><i class="fas fa-shield-virus text-xl md:text-2xl text-brand-gold"></i></div></div>
+                            <div><h3 class="font-display text-lg md:text-xl font-bold mb-2">RISK PROTECTION</h3><p class="text-gray-400 text-xs md:text-sm">Comprehensive insurance for international life, injuries, income loss, and professional liability.</p></div>
+                        </div>
+                        <div class="flex bg-brand-dark p-5 md:p-6 rounded-xl border border-white/5 hover:border-brand-gold/50 transition-colors">
+                            <div class="flex-shrink-0 mr-4 md:mr-6"><div class="w-12 h-12 md:w-16 md:h-16 bg-brand-navy rounded-full flex items-center justify-center border border-brand-gold/30"><i class="fas fa-file-invoice-dollar text-xl md:text-2xl text-brand-gold"></i></div></div>
+                            <div><h3 class="font-display text-lg md:text-xl font-bold mb-2">TAX OPTIMIZATION</h3><p class="text-gray-400 text-xs md:text-sm">Smart structuring to keep more of what you earn, legally and efficiently. Global compliance.</p></div>
+                        </div>
+                        <div class="flex bg-brand-dark p-5 md:p-6 rounded-xl border border-white/5 hover:border-brand-gold/50 transition-colors">
+                            <div class="flex-shrink-0 mr-4 md:mr-6"><div class="w-12 h-12 md:w-16 md:h-16 bg-brand-navy rounded-full flex items-center justify-center border border-brand-gold/30"><i class="fas fa-university text-xl md:text-2xl text-brand-gold"></i></div></div>
+                            <div><h3 class="font-display text-lg md:text-xl font-bold mb-2">2ND CAREER</h3><p class="text-gray-400 text-xs md:text-sm">Branding, media training, and education to prepare for life after sports. Building your business.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NEW SECTION: Empowerment Workshops -->
+            <section id="empowerment" class="py-16 md:py-24 bg-brand-dark relative border-t border-white/5">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12 md:mb-16">
+                        <span class="text-brand-gold font-bold tracking-wider text-sm uppercase">The Training Camp</span>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold mt-2 text-white">360° EMPOWERMENT WORKSHOPS</h2>
+                        <p class="text-gray-400 mt-4 max-w-2xl mx-auto text-sm md:text-base">
+                            We don't just manage your wealth; we teach you how to master it. Bespoke training for individuals, clubs, and federations.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                        <!-- Block 1: Financial Control -->
+                        <div class="bg-brand-navy p-6 md:p-8 rounded-xl border border-white/5 hover:border-brand-gold transition-all group">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors">
+                                <i class="fas fa-wallet text-2xl text-brand-gold group-hover:text-brand-dark"></i>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-white mb-4">TAKE CONTROL OF YOUR FINANCES</h3>
+                            <p class="text-gray-400 text-sm mb-6">No jargon. No products. Just the skills to stay in the driver's seat of your financial life.</p>
+                            <ul class="space-y-3 text-sm text-gray-300">
+                                <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i> <span><strong>Basics:</strong> Budgeting & protection strategies.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i> <span><strong>Investing:</strong> Asset management coaching.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i> <span><strong>Global Life:</strong> Taxes, contracts & currencies.</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Block 2: Media Mastery -->
+                        <div class="bg-brand-navy p-6 md:p-8 rounded-xl border border-white/5 hover:border-brand-gold transition-all group">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors">
+                                <i class="fas fa-microphone-alt text-2xl text-brand-gold group-hover:text-brand-dark"></i>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-white mb-4">OWN YOUR STORY</h3>
+                            <p class="text-gray-400 text-sm mb-6">Don't fear the mic. Use it to your advantage. Turn media attention into opportunity, not risk.</p>
+                            <ul class="space-y-3 text-sm text-gray-300">
+                                <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i> <span><strong>Confidence:</strong> Speak in any high-stakes situation.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i> <span><strong>Crisis:</strong> Manage social media storms.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i> <span><strong>Expertise:</strong> Trained by elite journalists.</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Block 3: Transition -->
+                        <div class="bg-brand-navy p-6 md:p-8 rounded-xl border border-white/5 hover:border-brand-gold transition-all group">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors">
+                                <i class="fas fa-compass text-2xl text-brand-gold group-hover:text-brand-dark"></i>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-white mb-4">PREPARE YOUR FUTURE</h3>
+                            <p class="text-gray-400 text-sm mb-6">The earlier you plant the tree, the stronger it grows. Connect today's performance to tomorrow's goals.</p>
+                            <ul class="space-y-3 text-sm text-gray-300">
+                                <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i> <span><strong>Understand:</strong> Clarify strengths & core values.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i> <span><strong>Project:</strong> Define your vision beyond sport.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i> <span><strong>Act:</strong> Build your post-career roadmap now.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 text-center">
+                         <button onclick="navigateTo('contact')" class="inline-flex items-center text-brand-gold font-bold hover:text-white transition-colors uppercase tracking-widest text-sm border-b border-brand-gold pb-1 hover:border-white">
+                            Book a Workshop for your Club <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gemini Powered AI Tools -->
+            <section id="tools" class="py-16 md:py-24 bg-brand-dark relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12 md:mb-16">
+                        <div class="inline-block px-3 py-1 border border-brand-gold/30 rounded-full bg-brand-gold/10 text-brand-gold text-xs font-bold tracking-widest mb-4">POWERED BY GEMINI AI</div>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold">LOCKER ROOM TECH</h2>
+                        <p class="text-gray-400 mt-2">Smart tools to decode your finances and build your future.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
+                        <!-- Decoder -->
+                        <div class="bg-brand-navy p-6 md:p-8 rounded-xl border border-white/5 shadow-2xl relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"><i class="fas fa-glasses text-7xl md:text-9xl text-brand-gold"></i></div>
+                            <div class="relative z-10">
+                                <h3 class="font-display text-xl md:text-2xl font-bold mb-2 text-white"><i class="fas fa-book-open mr-2 text-brand-gold"></i> The Playbook Decoder</h3>
+                                <p class="text-gray-400 text-sm mb-6">Confused by a contract clause or financial term? Paste it here to get a plain English explanation.</p>
+                                <textarea id="decoder-input" class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-gold transition-colors text-sm mb-4" rows="3" placeholder="e.g., 'Annuity due' or 'Force Majeure'..."></textarea>
+                                <button onclick="runDecoder()" class="w-full bg-brand-gold/10 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-dark font-bold py-3 rounded transition-all flex items-center justify-center gap-2"><i class="fas fa-magic"></i> TRANSLATE</button>
+                                <div id="decoder-output" class="mt-6 p-4 bg-black/30 rounded-lg border border-white/5 min-h-[100px] text-sm text-gray-300 hidden"></div>
+                            </div>
+                        </div>
+                        <!-- Legacy Builder -->
+                        <div class="bg-brand-navy p-6 md:p-8 rounded-xl border border-white/5 shadow-2xl relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"><i class="fas fa-briefcase text-7xl md:text-9xl text-brand-gold"></i></div>
+                            <div class="relative z-10">
+                                <h3 class="font-display text-xl md:text-2xl font-bold mb-2 text-white"><i class="fas fa-rocket mr-2 text-brand-gold"></i> Legend Legacy Builder</h3>
+                                <p class="text-gray-400 text-sm mb-6">Thinking about your 2nd career? Tell us your interests, and we'll generate business ideas for you.</p>
+                                <textarea id="legacy-input" class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-gold transition-colors text-sm mb-4" rows="3" placeholder="e.g., vintage cars, coffee, mentoring..."></textarea>
+                                <button onclick="runLegacyBuilder()" class="w-full bg-brand-gold/10 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-dark font-bold py-3 rounded transition-all flex items-center justify-center gap-2"><i class="fas fa-lightbulb"></i> GENERATE IDEAS</button>
+                                <div id="legacy-output" class="mt-6 p-4 bg-black/30 rounded-lg border border-white/5 min-h-[100px] text-sm text-gray-300 hidden"></div>
+                            </div>
+                        </div>
+                        <!-- Spin Doctor -->
+                        <div class="bg-brand-navy p-6 md:p-8 rounded-xl border border-white/5 shadow-2xl relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"><i class="fas fa-microphone-alt text-7xl md:text-9xl text-brand-gold"></i></div>
+                            <div class="relative z-10">
+                                <h3 class="font-display text-xl md:text-2xl font-bold mb-2 text-white"><i class="fas fa-comment-dots mr-2 text-brand-gold"></i> The Spin Doctor</h3>
+                                <p class="text-gray-400 text-sm mb-6">Prepare for the press. Tell us the situation, and we'll generate professional talking points.</p>
+                                <textarea id="spin-input" class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-gold transition-colors text-sm mb-4" rows="3" placeholder="e.g., We lost the championship..."></textarea>
+                                <button onclick="runSpinDoctor()" class="w-full bg-brand-gold/10 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-dark font-bold py-3 rounded transition-all flex items-center justify-center gap-2"><i class="fas fa-pen-fancy"></i> DRAFT STATEMENT</button>
+                                <div id="spin-output" class="mt-6 p-4 bg-black/30 rounded-lg border border-white/5 min-h-[100px] text-sm text-gray-300 hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulator 1: Lump Sum -->
+                    <div class="bg-brand-dark border border-brand-gold/20 rounded-xl overflow-hidden shadow-2xl mb-12">
+                        <div class="bg-brand-navy p-6 border-b border-brand-gold/10 flex justify-between items-center">
+                            <div><h3 class="font-display text-xl md:text-2xl font-bold text-white">INVESTMENT REALITY CHECK</h3><p class="text-xs md:text-sm text-gray-400">At your performance level, how much will your capital grow?</p></div>
+                            <i class="fas fa-chart-line text-3xl md:text-4xl text-brand-gold opacity-50"></i>
+                        </div>
+                        <div class="p-6 md:p-8 grid md:grid-cols-2 gap-8 md:gap-12">
+                            <div class="space-y-6 md:space-y-8">
+                                <div>
+                                    <label class="block text-sm font-bold text-brand-gold mb-2 uppercase tracking-wider">Starting Capital</label>
+                                    <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">€</span><input type="number" id="sim-capital" value="100000" oninput="updateSimulator()" class="w-full bg-brand-navy border border-gray-700 rounded text-white pl-8 pr-4 py-3 font-mono focus:border-brand-gold focus:outline-none transition-colors"></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2"><label class="text-sm font-bold text-gray-300">Gross Return</label><span id="val-gross" class="text-brand-gold font-mono font-bold">7%</span></div>
+                                    <input type="range" id="sim-gross" min="0" max="20" value="7" step="0.5" oninput="updateSimulator()" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand-gold">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2"><label class="text-sm font-bold text-gray-300">Fees</label><span id="val-fees" class="text-brand-gold font-mono font-bold">1.0%</span></div>
+                                    <input type="range" id="sim-fees" min="0" max="5" value="1.0" step="0.1" oninput="updateSimulator()" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand-gold">
+                                </div>
+                            </div>
+                            <div class="flex flex-col justify-center space-y-6">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="text-center p-3 md:p-4 bg-brand-navy rounded-xl border border-white/10"><div class="text-xs text-gray-400 uppercase tracking-widest mb-1">Value After 10 Years</div><div class="font-display font-bold text-xl md:text-2xl text-white" id="out-10">--</div></div>
+                                    <div class="text-center p-3 md:p-4 bg-brand-navy rounded-xl border border-brand-gold/30"><div class="text-xs text-gray-400 uppercase tracking-widest mb-1">Value After 30 Years</div><div class="font-display font-bold text-xl md:text-2xl text-brand-gold" id="out-30">--</div></div>
+                                </div>
+                                <div class="h-64 relative"><canvas id="performanceChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulator 2: Monthly -->
+                    <div class="bg-brand-dark border border-brand-gold/20 rounded-xl overflow-hidden shadow-2xl">
+                        <div class="bg-brand-navy p-6 border-b border-brand-gold/10 flex justify-between items-center">
+                            <div><h3 class="font-display text-xl md:text-2xl font-bold text-white">THE MONTHLY GRIND</h3><p class="text-xs md:text-sm text-gray-400">Consistency wins championships. See the power of monthly contributions.</p></div>
+                            <i class="fas fa-coins text-3xl md:text-4xl text-brand-gold opacity-50"></i>
+                        </div>
+                        <div class="p-6 md:p-8 grid md:grid-cols-2 gap-8 md:gap-12">
+                            <div class="space-y-6 md:space-y-8">
+                                <div>
+                                    <label class="block text-sm font-bold text-brand-gold mb-2 uppercase tracking-wider">Monthly Savings</label>
+                                    <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">€</span><input type="number" id="sim2-contribution" value="500" oninput="updateMonthlySimulator()" class="w-full bg-brand-navy border border-gray-700 rounded text-white pl-8 pr-4 py-3 font-mono focus:border-brand-gold focus:outline-none transition-colors"></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2"><label class="text-sm font-bold text-gray-300">Gross Return</label><span id="val2-gross" class="text-brand-gold font-mono font-bold">7%</span></div>
+                                    <input type="range" id="sim2-gross" min="0" max="20" value="7" step="0.5" oninput="updateMonthlySimulator()" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand-gold">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2"><label class="text-sm font-bold text-gray-300">Fees</label><span id="val2-fees" class="text-brand-gold font-mono font-bold">1.0%</span></div>
+                                    <input type="range" id="sim2-fees" min="0" max="5" value="1.0" step="0.1" oninput="updateMonthlySimulator()" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand-gold">
+                                </div>
+                            </div>
+                            <div class="flex flex-col justify-center space-y-6">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="text-center p-3 md:p-4 bg-brand-navy rounded-xl border border-white/10"><div class="text-xs text-gray-400 uppercase tracking-widest mb-1">Value After 10 Years</div><div class="font-display font-bold text-xl md:text-2xl text-white" id="out2-10">--</div></div>
+                                    <div class="text-center p-3 md:p-4 bg-brand-navy rounded-xl border border-brand-gold/30"><div class="text-xs text-gray-400 uppercase tracking-widest mb-1">Value After 30 Years</div><div class="font-display font-bold text-xl md:text-2xl text-brand-gold" id="out2-30">--</div></div>
+                                </div>
+                                <div class="h-64 relative"><canvas id="monthlyChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Values & Team (Integrated) -->
+            <section id="team-athlete" class="py-16 md:py-20 bg-brand-dark">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Values Bar -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 md:mb-20">
+                        <div class="bg-white/5 p-6 md:p-8 text-center rounded border-b-4 border-brand-gold">
+                            <div class="text-3xl md:text-4xl font-display font-bold text-white mb-2">100%</div>
+                            <div class="text-brand-gold font-bold tracking-widest uppercase text-sm">ATHLETE FIRST</div>
+                            <p class="text-xs text-gray-500 mt-2">We are on YOUR team.</p>
+                        </div>
+                        <div class="bg-white/5 p-6 md:p-8 text-center rounded border-b-4 border-brand-gold">
+                            <div class="text-3xl md:text-4xl font-display font-bold text-white mb-2">0</div>
+                            <div class="text-brand-gold font-bold tracking-widest uppercase text-sm">HIDDEN FEES</div>
+                            <p class="text-xs text-gray-500 mt-2">Transparent pricing for advice.</p>
+                        </div>
+                        <div class="bg-white/5 p-6 md:p-8 text-center rounded border-b-4 border-brand-gold">
+                            <div class="text-3xl md:text-4xl font-display font-bold text-white mb-2">NO</div>
+                            <div class="text-brand-gold font-bold tracking-widest uppercase text-sm">COMMISSIONS</div>
+                            <p class="text-xs text-gray-500 mt-2">No undisclosed kickbacks from products.</p>
+                        </div>
+                    </div>
+
+                    <!-- Team Grid -->
+                    <h3 class="font-display text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center">MEET YOUR COACHES</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                         <!-- Tom Rasqué -->
+                        <div class="bg-brand-navy/50 p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col md:flex-row gap-6 items-start">
+                            <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 bg-gray-700 rounded-full overflow-hidden flex items-center justify-center text-xl md:text-2xl font-display font-bold text-white border-2 border-brand-gold">TR</div>
+                            <div>
+                                <h4 class="text-lg md:text-xl font-bold text-white uppercase">TOM RASQUÉ</h4>
+                                <p class="text-brand-gold text-xs font-bold mb-4 tracking-wider">MANAGING PARTNER AND FOUNDER TRUE.INDUSTRIES</p>
+                                <p class="text-gray-400 text-sm mb-4 leading-relaxed">20+ years of experience in wealth management. Tom advocates for financial literacy and conflict-free advisory to empower athletes beyond their careers.</p>
+                            </div>
+                        </div>
+                         <!-- Matej Kraus -->
+                        <div class="bg-brand-navy/50 p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col md:flex-row gap-6 items-start">
+                             <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 bg-gray-700 rounded-full overflow-hidden flex items-center justify-center text-xl md:text-2xl font-display font-bold text-white border-2 border-brand-gold">MK</div>
+                            <div>
+                                <h4 class="text-lg md:text-xl font-bold text-white uppercase">MATEJ KRAUS</h4>
+                                <p class="text-brand-gold text-xs font-bold mb-4 tracking-wider">SPORTS BUSINESS STRATEGIST TRUE.INDUSTRIES</p>
+                                <p class="text-gray-400 text-sm mb-4 leading-relaxed">10+ years in sports marketing and fan engagement. Expert in digital transformation, ticketing monetization, and sponsorship strategy.</p>
+                            </div>
+                        </div>
+                        <!-- Pierre-Olivier Lauvige -->
+                        <div class="bg-brand-navy/50 p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col md:flex-row gap-6 items-start">
+                             <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 bg-gray-700 rounded-full overflow-hidden flex items-center justify-center text-xl md:text-2xl font-display font-bold text-white border-2 border-brand-gold">PL</div>
+                            <div>
+                                <h4 class="text-lg md:text-xl font-bold text-white uppercase">PIERRE-OLIVIER LAUVIGE</h4>
+                                <p class="text-brand-gold text-xs font-bold mb-4 tracking-wider">JOURNALIST & COMMUNICATION EXPERT</p>
+                                <p class="text-gray-400 text-sm mb-4 leading-relaxed">20+ years in journalism and media training. Founder of NetCast Conseil (Partner of Paris 2024). Pierre-Olivier empowers athletes to master their narrative and manage high-stakes communication.</p>
+                            </div>
+                        </div>
+                        <!-- Fabien Rion -->
+                        <div class="bg-brand-navy/50 p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col md:flex-row gap-6 items-start">
+                             <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 bg-gray-700 rounded-full overflow-hidden flex items-center justify-center text-xl md:text-2xl font-display font-bold text-white border-2 border-brand-gold">FR</div>
+                            <div>
+                                <h4 class="text-lg md:text-xl font-bold text-white uppercase">FABIEN RION</h4>
+                                <p class="text-brand-gold text-xs font-bold mb-4 tracking-wider">PERFORMANCE & TRANSITION COACH</p>
+                                <p class="text-gray-400 text-sm mb-4 leading-relaxed">Former pro basketball player and certified coach (ICF). Fabien bridges sports performance with life transition, helping athletes clarify values and align their vision for a meaningful post-career future.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Contact / CTA Section -->
+            <section class="py-16 md:py-24 bg-brand-navy relative clip-slant">
+                <div class="absolute top-0 right-0 w-1/3 h-full bg-brand-gold/5 pointer-events-none"></div>
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">READY TO WIN?</h2>
+                    <p class="text-lg md:text-xl text-brand-gold">Contact us for a confidential consultation.</p>
+                    <button onclick="navigateTo('contact')" class="mt-8 bg-brand-gold text-brand-dark font-bold py-3 md:py-4 px-6 md:px-8 rounded hover:bg-white transition-all transform hover:-translate-y-1 shadow-lg">START YOUR STRATEGY</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW 3: FAMILIES & ENTREPRENEURS (Standalone Page) -->
+        <!-- ============================================== -->
+        <div id="view-families" class="page-view hidden">
+            <!-- Header -->
+            <div class="bg-brand-light text-brand-dark py-16 md:py-20 relative clip-chevron">
+                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 md:pt-10">
+                    <div class="inline-block px-4 py-1 border border-brand-navy text-brand-navy font-bold tracking-widest uppercase text-sm mb-4 rounded-full">Private Office</div>
+                    <h1 class="font-display text-4xl md:text-6xl font-bold mb-4 md:mb-6">FAMILIES & ENTREPRENEURS</h1>
+                    <p class="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
+                        We act as the architect of your legacy, navigating complex financial worlds from deal financing to generational succession.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="bg-brand-light pb-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 -mt-6 md:-mt-10 relative z-10">
+                        <!-- Cards -->
+                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-b-4 border-brand-navy">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-lg flex items-center justify-center mb-6"><i class="fas fa-hand-holding-usd text-2xl text-brand-navy"></i></div>
+                            <h3 class="font-display text-lg md:text-xl font-bold mb-3 text-brand-dark">INVESTMENT GUIDANCE</h3>
+                            <p class="text-gray-600 text-sm">Independent consolidation and support. We don't sell products. With true.financialadvisory, we review and structure strategies alongside regulated, best-in-class partners.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-b-4 border-brand-navy">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-lg flex items-center justify-center mb-6"><i class="fas fa-briefcase text-2xl text-brand-navy"></i></div>
+                            <h3 class="font-display text-lg md:text-xl font-bold mb-3 text-brand-dark">ENTREPRENEURIAL SUPPORT</h3>
+                            <p class="text-gray-600 text-sm">Fueling your next venture. We assist with deal (re)financing, funding strategies, and liquidity management for business owners.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-b-4 border-brand-navy">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-lg flex items-center justify-center mb-6"><i class="fas fa-shield-alt text-2xl text-brand-navy"></i></div>
+                            <h3 class="font-display text-lg md:text-xl font-bold mb-3 text-brand-dark">LEGACY PROTECTION</h3>
+                            <p class="text-gray-600 text-sm">Risk covers and succession planning. Ensuring your wealth transfers smoothly and securely to the people who matter most.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-b-4 border-brand-navy">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-lg flex items-center justify-center mb-6"><i class="fas fa-graduation-cap text-2xl text-brand-navy"></i></div>
+                            <h3 class="font-display text-lg md:text-xl font-bold mb-3 text-brand-dark">NEXT GEN EMPOWERMENT</h3>
+                            <p class="text-gray-600 text-sm">Financial literacy coaching for the next generation. We prepare your heirs to be responsible stewards of the family fortune.</p>
+                        </div>
+                        <div class="md:col-span-2 bg-brand-navy text-white p-6 md:p-8 rounded-xl shadow-lg relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-8 opacity-10"><i class="fas fa-globe-europe text-8xl md:text-9xl text-brand-gold"></i></div>
+                            <div class="relative z-10">
+                                <h3 class="font-display text-xl md:text-2xl font-bold mb-4 text-brand-gold">TRUE.INTERNATIONAL LIFE</h3>
+                                <p class="text-gray-300 mb-6 max-w-lg">For global citizens with interests across borders. We structure your world to optimize taxes, simplify finances, and secure peace of mind.</p>
+                                <ul class="grid md:grid-cols-2 gap-4 text-sm font-semibold">
+                                    <li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2"></i> Structure Global Interests</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2"></i> Maximize & Protect Savings</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2"></i> Regulated Frameworks</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-brand-gold mr-2"></i> Repatriation Planning</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Family CTA -->
+            <section class="py-16 bg-white border-t border-gray-200">
+                <div class="max-w-4xl mx-auto px-4 text-center">
+                    <h2 class="font-display text-3xl md:text-4xl font-bold mb-4 text-brand-dark">SECURE YOUR LEGACY</h2>
+                    <p class="text-gray-600 mb-8">Complex challenges require expert navigation. Let's discuss your future.</p>
+                    <button onclick="navigateTo('contact')" class="bg-brand-navy text-white font-bold px-8 py-4 rounded hover:bg-brand-gold hover:text-brand-dark transition-all">REQUEST CONSULTATION</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW 4: TEAM (Standalone Page) -->
+        <!-- ============================================== -->
+        <div id="view-team" class="page-view hidden">
+            <div class="bg-brand-dark py-16 md:py-20 text-center">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <span class="text-brand-gold font-bold tracking-wider text-sm uppercase">Our Expertise</span>
+                    <h1 class="font-display text-4xl md:text-5xl font-bold mt-2 text-white">THE PERFORMANCE SQUAD</h1>
+                    <p class="text-gray-400 mt-4 max-w-2xl mx-auto text-sm md:text-base">
+                        A culture of integrity, trust, and discretion. Our dedicated professionals bring decades of specialized knowledge to your corner.
+                    </p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+                <div class="grid grid-cols-1 gap-8 md:gap-12">
+                    <!-- TOM RASQUE -->
+                    <div class="bg-brand-navy/50 p-6 md:p-12 rounded-2xl border border-white/5 flex flex-col md:flex-row gap-8 items-start">
+                        <div class="w-24 h-24 md:w-32 md:h-32 bg-gray-700 rounded-full flex-shrink-0 flex items-center justify-center text-3xl md:text-4xl font-display font-bold text-white border-4 border-brand-gold">TR</div>
+                        <div>
+                            <h3 class="font-display text-2xl md:text-3xl font-bold text-white">TOM RASQUÉ</h3>
+                            <p class="text-brand-gold font-bold tracking-widest uppercase mb-4 text-xs md:text-sm">Managing Partner and Founder true.industries</p>
+                            <p class="text-gray-300 leading-relaxed mb-6 text-sm md:text-base">
+                                20+ years of experience in wealth management, private banking & financial marketing. Tom advocates for financial literacy & conflict-free advisory to empower athletes beyond their careers. He has held senior roles at major banking groups and institutions, driving significant business inflows and building high-value client propositions.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Financial empowerment</span>
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Family office services</span>
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">International life</span>
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Branding & Communication</span>
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Leadership</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEBASTIEN MURER -->
+                    <div class="bg-brand-navy/50 p-6 md:p-12 rounded-2xl border border-white/5 flex flex-col md:flex-row gap-8 items-start">
+                        <div class="w-24 h-24 md:w-32 md:h-32 bg-gray-700 rounded-full flex-shrink-0 flex items-center justify-center text-3xl md:text-4xl font-display font-bold text-white border-4 border-brand-gold">SM</div>
+                        <div>
+                            <h3 class="font-display text-2xl md:text-3xl font-bold text-white">SEBASTIEN MURER</h3>
+                            <p class="text-brand-gold font-bold tracking-widest uppercase mb-4 text-xs md:text-sm">Director Investments, Founder true.financialadvisory</p>
+                            <p class="text-gray-300 leading-relaxed mb-6 text-sm md:text-base">
+                                12+ years of experience in asset management, private equity, and regulatory compliance. Former Head of Portfolio Management & Conducting Officer. Sebastien specializes in bridging technical actuarial modeling with high-level financial strategy and risk assessment.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Asset allocation</span>
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Investments</span>
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Risk Analysis</span>
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Private Equity</span>
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Private Debt</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MATEJ KRAUS -->
+                    <div class="bg-brand-navy/50 p-6 md:p-12 rounded-2xl border border-white/5 flex flex-col md:flex-row gap-8 items-start">
+                        <div class="w-24 h-24 md:w-32 md:h-32 bg-gray-700 rounded-full flex-shrink-0 flex items-center justify-center text-3xl md:text-4xl font-display font-bold text-white border-4 border-brand-gold">MK</div>
+                        <div>
+                            <h3 class="font-display text-2xl md:text-3xl font-bold text-white">MATEJ KRAUS</h3>
+                            <p class="text-brand-gold font-bold tracking-widest uppercase mb-4 text-xs md:text-sm">Sports Business Strategist true.industries</p>
+                            <p class="text-gray-300 leading-relaxed mb-6 text-sm md:text-base">
+                                10+ years of experience in sports marketing, fan engagement, and sponsorship strategy. Former Marketing Innovation Manager at Czech Ice Hockey Association. Matej brings a strong focus on sustainable fan engagement and creating long-term impact for sports organizations.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Marketing Innovation</span>
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Sponsorship</span>
+                                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Fan Engagement</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team CTA -->
+            <section class="py-16 bg-brand-navy border-t border-white/10">
+                <div class="max-w-4xl mx-auto px-4 text-center">
+                    <h2 class="font-display text-3xl md:text-4xl font-bold mb-8">LET US SUPPORT YOUR NEXT MOVE</h2>
+                    <button onclick="navigateTo('contact')" class="bg-brand-gold text-brand-dark font-bold px-8 py-4 rounded hover:bg-white transition-all">CONTACT THE TEAM</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW 5: CONTACT (Standalone Page) -->
+        <!-- ============================================== -->
+        <div id="view-contact" class="page-view hidden">
+            <section class="py-16 md:py-24 bg-brand-navy relative overflow-hidden min-h-[80vh] flex items-center">
+                <div class="absolute top-0 right-0 w-1/3 h-full bg-brand-gold/5 pointer-events-none"></div>
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                    
+                    <div class="text-center mb-12">
+                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-white">START THE CONVERSATION</h2>
+                        <p class="text-lg md:text-xl text-brand-gold">Confidential. Independent. True.</p>
+                        <p class="text-gray-400 mt-2">Whether you are an athlete, an entrepreneur, or a family—we are on your team.</p>
+                    </div>
+
+                    <div class="bg-brand-dark p-6 md:p-12 rounded-2xl shadow-2xl border border-white/10">
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">I am an...</label>
+                                    <select class="w-full bg-brand-navy border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-gold transition-colors">
+                                        <option>Athlete</option>
+                                        <option>Entrepreneur</option>
+                                        <option>Family Representative</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">Full Name</label>
+                                    <input type="text" class="w-full bg-brand-navy border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-gold transition-colors" placeholder="John Doe">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                                    <input type="email" class="w-full bg-brand-navy border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-gold transition-colors" placeholder="john@example.com">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">Phone</label>
+                                    <input type="tel" class="w-full bg-brand-navy border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-gold transition-colors" placeholder="+352 ...">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                                <textarea rows="4" class="w-full bg-brand-navy border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-gold transition-colors" placeholder="How can we help?"></textarea>
+                            </div>
+
+                            <button type="button" onclick="alert('Thank you. We will contact you shortly.')" class="w-full bg-brand-gold text-brand-dark font-bold text-lg py-4 rounded-lg hover:bg-white transition-all transform hover:-translate-y-1 shadow-lg shadow-brand-gold/20">
+                                SEND MESSAGE
+                            </button>
+                        </form>
+
+                        <div class="mt-8 pt-8 border-t border-white/10 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
+                            <div class="mb-4 md:mb-0">
+                                <strong class="text-white block text-lg">True Industries S.A.</strong>
+                                <span>Luxembourg | Global Reach</span>
+                            </div>
+                            <div class="flex gap-6 justify-center md:justify-end">
+                                <a href="mailto:contact@trueindustries.lu" class="hover:text-brand-gold"><i class="fas fa-envelope mr-2"></i>contact@trueindustries.lu</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="bg-black py-8 text-center text-gray-600 text-xs border-t border-white/5">
+        <p>&copy; 2025 True Industries. All rights reserved.</p>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        const apiKey = ""; 
+
+        // NAVIGATION LOGIC
+        function navigateTo(viewId) {
+            // Hide all views
+            document.querySelectorAll('.page-view').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // Show target view
+            const target = document.getElementById('view-' + viewId);
+            if(target) {
+                target.classList.remove('hidden');
+                target.classList.add('animate-fade-in');
+            }
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // --- GEMINI FUNCTIONS ---
+        async function callGemini(prompt) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
+
+            let attempts = 0;
+            const maxAttempts = 3;
+
+            while (attempts < maxAttempts) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
+                } catch (error) {
+                    attempts++;
+                    if (attempts >= maxAttempts) return "Service currently unavailable.";
+                    await new Promise(r => setTimeout(r, 1000));
+                }
+            }
+        }
+
+        async function runDecoder() {
+            const input = document.getElementById('decoder-input').value;
+            const outputDiv = document.getElementById('decoder-output');
+            if (!input.trim()) { alert("Please enter a term."); return; }
+            outputDiv.innerHTML = '<span class="text-brand-gold">Analyzing...</span>';
+            outputDiv.classList.remove('hidden');
+            const result = await callGemini("Explain this financial term simply for an athlete: " + input);
+            outputDiv.innerHTML = `<div class="ai-output">${result.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>`;
+        }
+
+        async function runLegacyBuilder() {
+            const input = document.getElementById('legacy-input').value;
+            const outputDiv = document.getElementById('legacy-output');
+            if (!input.trim()) { alert("Please enter interests."); return; }
+            outputDiv.innerHTML = '<span class="text-brand-gold">Generating ideas...</span>';
+            outputDiv.classList.remove('hidden');
+            const result = await callGemini("Suggest 3 business ideas for a retiring athlete interested in: " + input);
+            outputDiv.innerHTML = `<div class="ai-output">${result.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>`;
+        }
+        
+        async function runSpinDoctor() {
+            const input = document.getElementById('spin-input').value;
+            const outputDiv = document.getElementById('spin-output');
+            if (!input.trim()) { alert("Please enter a scenario."); return; }
+            outputDiv.innerHTML = '<span class="text-brand-gold">Drafting...</span>';
+            outputDiv.classList.remove('hidden');
+            const result = await callGemini("Draft 3 talking points for an athlete press conference: " + input);
+            outputDiv.innerHTML = `<div class="ai-output">${result.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>`;
+        }
+
+        // --- SIMULATOR LOGIC (Merged) ---
+        let performanceChart, monthlyChart;
+
+        function updateSimulator() {
+            const principal = parseFloat(document.getElementById('sim-capital').value) || 100000;
+            const grossReturn = parseFloat(document.getElementById('sim-gross').value);
+            const fees = parseFloat(document.getElementById('sim-fees').value);
+
+            document.getElementById('val-gross').textContent = grossReturn + "%";
+            document.getElementById('val-fees').textContent = fees.toFixed(1) + "%";
+
+            let rNet = grossReturn - fees;
+            const fv10 = principal * Math.pow(1 + (rNet / 100), 10);
+            const fv30 = principal * Math.pow(1 + (rNet / 100), 30);
+            
+            const formatter = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+            document.getElementById('out-10').textContent = formatter.format(fv10);
+            document.getElementById('out-30').textContent = formatter.format(fv30);
+            
+            updateChart(principal, rNet);
+        }
+
+        function updateChart(principal, netReturn) {
+            const ctx = document.getElementById('performanceChart');
+            if(!ctx) return;
+            
+            const labels = [], data = [];
+            for (let i = 0; i <= 30; i++) {
+                labels.push(`Year ${i}`);
+                data.push(principal * Math.pow(1 + (netReturn / 100), i));
+            }
+
+            if (performanceChart) performanceChart.destroy();
+
+            const context = ctx.getContext('2d');
+            const gradient = context.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(197, 160, 89, 0.5)');
+            gradient.addColorStop(1, 'rgba(197, 160, 89, 0)');
+
+            performanceChart = new Chart(context, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Portfolio Value (€)',
+                        data: data,
+                        borderColor: '#C5A059',
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { display: false },
+                        y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#9CA3AF', callback: val => '€' + (val / 1000) + 'k' } }
+                    }
+                }
+            });
+        }
+
+        function updateMonthlySimulator() {
+            const contribution = parseFloat(document.getElementById('sim2-contribution').value) || 500;
+            const grossReturn = parseFloat(document.getElementById('sim2-gross').value);
+            const fees = parseFloat(document.getElementById('sim2-fees').value);
+
+            document.getElementById('val2-gross').textContent = grossReturn + "%";
+            document.getElementById('val2-fees').textContent = fees.toFixed(1) + "%";
+
+            let rNetAnnual = grossReturn - fees;
+            let rMonthly = rNetAnnual / 100 / 12;
+
+            const calcFV = (y) => {
+                const m = y * 12;
+                if (rMonthly === 0) return contribution * m;
+                return contribution * ((Math.pow(1 + rMonthly, m) - 1) / rMonthly);
+            };
+
+            const formatter = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+            document.getElementById('out2-10').textContent = formatter.format(calcFV(10));
+            document.getElementById('out2-30').textContent = formatter.format(calcFV(30));
+
+            updateMonthlyChart(contribution, rMonthly);
+        }
+
+        function updateMonthlyChart(contribution, rMonthly) {
+             const ctx = document.getElementById('monthlyChart');
+            if(!ctx) return;
+            
+            const labels = [], data = [];
+            for (let i = 0; i <= 30; i++) {
+                labels.push(`Year ${i}`);
+                const m = i * 12;
+                let val = 0;
+                if (rMonthly === 0) val = contribution * m;
+                else val = contribution * ((Math.pow(1 + rMonthly, m) - 1) / rMonthly);
+                data.push(val);
+            }
+
+            if (monthlyChart) monthlyChart.destroy();
+            
+            const context = ctx.getContext('2d');
+            const gradient = context.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(197, 160, 89, 0.5)');
+            gradient.addColorStop(1, 'rgba(197, 160, 89, 0)');
+
+            monthlyChart = new Chart(context, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Portfolio Value (€)',
+                        data: data,
+                        borderColor: '#C5A059',
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                         x: { display: false },
+                        y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#9CA3AF', callback: val => '€' + (val / 1000) + 'k' } }
+                    }
+                }
+            });
+        }
+
+        window.onload = function() {
+            // Initial render
+            navigateTo('home');
+            
+            // Wait a moment for chart canvases to be ready if they are hidden
+            setTimeout(() => {
+                updateSimulator();
+                updateMonthlySimulator();
+            }, 500);
+        };
+    </script>
+</body>
+</html>
