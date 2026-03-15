@@ -258,10 +258,11 @@
     <div class="container header-inner">
       <a href="#" class="brand" onclick="navigateTo('home');return false;"><img src="true-industries-logo.png" alt="true.industries"></a>
       <nav class="nav">
-        <button class="nav-btn active" data-view="home">Home</button>
-        <button class="nav-btn" data-view="athletes">Athletes</button>
-        <button class="nav-btn" data-view="families">Families & Entrepreneurs</button>
-        <button class="nav-btn" data-view="team">Team</button>
+<button class="nav-btn active" data-view="home" type="button">Home</button>
+<button class="nav-btn" data-view="athletes" type="button">Athletes</button>
+<button class="nav-btn" data-view="families" type="button">Families & Entrepreneurs</button>
+<button class="nav-btn" data-view="team" type="button">Team</button>
+<button class="nav-btn" data-view="contact" type="button">Contact</button>
       </nav>
       <button class="header-cta" onclick="navigateTo('contact')">Contact</button>
       <button class="menu-toggle" onclick="toggleMenu()">☰</button>
@@ -565,60 +566,115 @@
   <footer>© 2025 True Industries. All rights reserved.</footer>
 
   <script>
-    const views = ['home','athletes','families','team','contact'];
-    function setActiveButtons(view){
-      document.querySelectorAll('.nav-btn').forEach(btn=>btn.classList.toggle('active', btn.dataset.view===view));
-    }
-    function navigateTo(view){
-      views.forEach(v=>document.getElementById('view-'+v).classList.toggle('active', v===view));
-      setActiveButtons(view);
-      document.getElementById('mobileMenu').classList.remove('show');
-      window.scrollTo({top:0,behavior:'smooth'});
-    }
-    document.querySelectorAll('.nav-btn').forEach(btn=>btn.addEventListener('click', ()=>navigateTo(btn.dataset.view)));
-    function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('show'); }
+  const views = ["home", "athletes", "families", "team", "contact"];
 
-    function formatEUR(value){
-      return new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(value);
-    }
+  function setActiveButtons(view) {
+    document.querySelectorAll("[data-view]").forEach((el) => {
+      el.classList.toggle("active", el.dataset.view === view);
+    });
+  }
 
-    function calcLumpSum(){
-      const principal = parseFloat(document.getElementById('lumpPrincipal').value) || 0;
-      const gross = parseFloat(document.getElementById('lumpReturn').value) || 0;
-      const fees = parseFloat(document.getElementById('lumpFees').value) || 0;
-      const net = (gross - fees) / 100;
-      const y10 = principal * Math.pow(1 + net, 10);
-      const y30 = principal * Math.pow(1 + net, 30);
-      document.getElementById('lump10').textContent = formatEUR(y10);
-      document.getElementById('lump30').textContent = formatEUR(y30);
-    }
+  function navigateTo(view) {
+    views.forEach((v) => {
+      const section = document.getElementById("view-" + v);
+      if (section) {
+        section.classList.toggle("active", v === view);
+      }
+    });
 
-    function calcMonthly(){
-      const monthly = parseFloat(document.getElementById('monthlyContribution').value) || 0;
-      const gross = parseFloat(document.getElementById('monthlyReturn').value) || 0;
-      const fees = parseFloat(document.getElementById('monthlyFees').value) || 0;
-      const netMonthly = ((gross - fees) / 100) / 12;
-      const fv = (payment, rate, months) => rate === 0 ? payment * months : payment * ((Math.pow(1 + rate, months) - 1) / rate);
-      document.getElementById('monthly10').textContent = formatEUR(fv(monthly, netMonthly, 120));
-      document.getElementById('monthly30').textContent = formatEUR(fv(monthly, netMonthly, 360));
-    }
+    setActiveButtons(view);
 
-    function runTool(type){
-      const prompts = {
-        decoder: { input: document.getElementById('decoderInput').value.trim(), output: document.getElementById('decoderOutput'), fallback: 'This is a UI-ready placeholder. Insert your Gemini API call here to explain athlete finance terms in plain English.' },
-        legacy: { input: document.getElementById('legacyInput').value.trim(), output: document.getElementById('legacyOutput'), fallback: 'This is a UI-ready placeholder. Insert your Gemini API call here to generate second-career or business ideas.' },
-        spin: { input: document.getElementById('spinInput').value.trim(), output: document.getElementById('spinOutput'), fallback: 'This is a UI-ready placeholder. Insert your Gemini API call here to generate media talking points.' }
-      };
-      const item = prompts[type];
-      if(!item.input){ item.output.textContent = 'Please enter some text first.'; return; }
-      item.output.textContent = item.fallback + '
+    const mobileMenu = document.getElementById("mobileMenu");
+    if (mobileMenu) mobileMenu.classList.remove("show");
 
-Input captured: ' + item.input;
-    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
+  function toggleMenu() {
+    const mobileMenu = document.getElementById("mobileMenu");
+    if (mobileMenu) mobileMenu.classList.toggle("show");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-view]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        navigateTo(el.dataset.view);
+      });
+    });
+
+    // calculators
     calcLumpSum();
     calcMonthly();
-  </script>
-</body>
-</html>
+  });
 
+  function formatEUR(value) {
+    return new Intl.NumberFormat("en-IE", {
+      style: "currency",
+      currency: "EUR",
+      maximumFractionDigits: 0,
+    }).format(value);
+  }
+
+  function calcLumpSum() {
+    const principal = parseFloat(document.getElementById("lumpPrincipal")?.value || 0);
+    const gross = parseFloat(document.getElementById("lumpReturn")?.value || 0);
+    const fees = parseFloat(document.getElementById("lumpFees")?.value || 0);
+    const net = (gross - fees) / 100;
+    const y10 = principal * Math.pow(1 + net, 10);
+    const y30 = principal * Math.pow(1 + net, 30);
+
+    const out10 = document.getElementById("lump10");
+    const out30 = document.getElementById("lump30");
+    if (out10) out10.textContent = formatEUR(y10);
+    if (out30) out30.textContent = formatEUR(y30);
+  }
+
+  function calcMonthly() {
+    const monthly = parseFloat(document.getElementById("monthlyContribution")?.value || 0);
+    const gross = parseFloat(document.getElementById("monthlyReturn")?.value || 0);
+    const fees = parseFloat(document.getElementById("monthlyFees")?.value || 0);
+    const netMonthly = ((gross - fees) / 100) / 12;
+
+    const fv = (payment, rate, months) =>
+      rate === 0 ? payment * months : payment * ((Math.pow(1 + rate, months) - 1) / rate);
+
+    const out10 = document.getElementById("monthly10");
+    const out30 = document.getElementById("monthly30");
+    if (out10) out10.textContent = formatEUR(fv(monthly, netMonthly, 120));
+    if (out30) out30.textContent = formatEUR(fv(monthly, netMonthly, 360));
+  }
+
+  function runTool(type) {
+    const prompts = {
+      decoder: {
+        input: document.getElementById("decoderInput")?.value.trim() || "",
+        output: document.getElementById("decoderOutput"),
+        fallback:
+          "This is a UI-ready placeholder. Insert your Gemini API call here to explain athlete finance terms in plain English.",
+      },
+      legacy: {
+        input: document.getElementById("legacyInput")?.value.trim() || "",
+        output: document.getElementById("legacyOutput"),
+        fallback:
+          "This is a UI-ready placeholder. Insert your Gemini API call here to generate second-career or business ideas.",
+      },
+      spin: {
+        input: document.getElementById("spinInput")?.value.trim() || "",
+        output: document.getElementById("spinOutput"),
+        fallback:
+          "This is a UI-ready placeholder. Insert your Gemini API call here to generate media talking points.",
+      },
+    };
+
+    const item = prompts[type];
+    if (!item || !item.output) return;
+
+    if (!item.input) {
+      item.output.textContent = "Please enter some text first.";
+      return;
+    }
+
+    item.output.textContent = item.fallback + "\\n\\nInput captured: " + item.input;
+  }
+</script>
