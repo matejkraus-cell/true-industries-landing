@@ -9,190 +9,232 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#050505;
-      --bg-soft:#0b0b0b;
-      --panel:#0f0f0f;
-      --line:rgba(255,255,255,.11);
-      --muted:#bcbcbc;
-      --text:#f2f2f2;
-      --light:#efefef;
-      --light-line:rgba(0,0,0,.1);
-      --dark-text:#121212;
-      --card-radius:32px;
-      --shadow:0 20px 50px rgba(0,0,0,.18);
-      --max:1360px;
+      --bg:#070707;
+      --bg-soft:#111111;
+      --panel:#171717;
+      --line-dark:rgba(255,255,255,.11);
+      --line-light:rgba(0,0,0,.08);
+      --text:#111111;
+      --text-inverse:#f4f4f4;
+      --muted:#5f5f5f;
+      --muted-inverse:#bdbdbd;
+      --off:#f5f3ef;
+      --off-2:#ece8e1;
+      --gold:#b78a2f;
+      --max:1380px;
+      --shadow:0 24px 60px rgba(0,0,0,.08);
+      --radius:28px;
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    body{margin:0;font-family:'Montserrat',sans-serif;background:var(--off);color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     a{text-decoration:none;color:inherit}
     button{font:inherit}
     img{max-width:100%;display:block}
+    h1,h2,h3,h4,p{margin:0}
+
     .container{width:min(var(--max),calc(100vw - 64px));margin:0 auto}
     .view{display:none}
     .view.active{display:block}
-    .site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,5,.86);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
-    .header-inner{height:84px;display:grid;grid-template-columns:240px 1fr 180px;align-items:center;gap:20px}
-    .brand img{height:48px;width:auto}
+
+    .site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,7,7,.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07)}
+    .header-inner{height:84px;display:grid;grid-template-columns:260px 1fr 190px;align-items:center;gap:20px}
+    .brand{display:flex;align-items:center;min-width:0}
+    .brand img{height:48px;width:auto;object-fit:contain;filter:none}
     .nav{display:flex;gap:34px;justify-content:center;align-items:center}
-    .nav button,.mobile-menu button{background:none;border:none;color:#ddd;letter-spacing:.04em;font-size:13px;font-weight:600;cursor:pointer;transition:.25s ease;padding:0}
+    .nav button,.mobile-menu button{background:none;border:none;color:#d8d8d8;letter-spacing:.04em;font-size:13px;font-weight:600;cursor:pointer;transition:.2s ease;padding:0}
     .nav button:hover,.nav button.active,.mobile-menu button.active{color:#fff}
-    .header-cta{justify-self:end;border:1px solid rgba(255,255,255,.34);color:#fff;background:#fff;padding:16px 42px;border-radius:999px;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;color:#111}
-    .header-cta:hover{background:#f5f5f5}
+    .header-cta{justify-self:end;border:1px solid rgba(255,255,255,.28);background:#fff;color:#111;padding:16px 42px;border-radius:999px;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.2s ease}
+    .header-cta:hover{background:#f0f0f0}
     .menu-toggle{display:none;background:none;border:none;color:#fff;font-size:26px;justify-self:end}
     .mobile-menu{display:none;padding:0 0 18px 0;border-top:1px solid rgba(255,255,255,.08)}
     .mobile-menu .stack{display:flex;flex-direction:column;gap:14px;padding-top:18px}
 
     main{padding-top:84px}
-    .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;color:#c8c8c8;font-size:15px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
-    .eyebrow::before{content:"";display:block;width:42px;height:1px;background:currentColor;opacity:.7}
-    h1,h2,h3,h4,p{margin:0}
-    .hero-title{font-size:clamp(56px,9vw,128px);line-height:.94;font-weight:800;letter-spacing:-.05em;text-transform:uppercase}
-    .title-xl{font-size:clamp(44px,6vw,86px);line-height:.95;font-weight:800;letter-spacing:-.045em;text-transform:uppercase}
+    .section{padding:96px 0}
+    .section-tight{padding:72px 0}
+    .section-dark{background:var(--bg);color:var(--text-inverse)}
+    .section-light{background:#fff;color:var(--text)}
+    .section-off{background:var(--off);color:var(--text)}
+
+    .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:18px;color:#717171;font-size:15px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+    .eyebrow::before{content:"";display:block;width:42px;height:1px;background:currentColor;opacity:.75}
+    .eyebrow.light{color:#c9c9c9}
+
+    .hero-title{font-size:clamp(56px,9vw,128px);line-height:.93;font-weight:800;letter-spacing:-.055em;text-transform:uppercase}
+    .title-xl{font-size:clamp(44px,6vw,84px);line-height:.95;font-weight:800;letter-spacing:-.045em;text-transform:uppercase}
     .title-lg{font-size:clamp(34px,4vw,56px);line-height:1.02;font-weight:800;letter-spacing:-.04em;text-transform:uppercase}
     .title-md{font-size:clamp(28px,3vw,42px);line-height:1.02;font-weight:800;letter-spacing:-.035em}
     .lead{font-size:clamp(18px,2vw,24px);line-height:1.65;color:var(--muted)}
+    .lead.light{color:var(--muted-inverse)}
     .body{font-size:18px;line-height:1.75;color:var(--muted)}
-    .section{padding:96px 0}
-    .section-tight{padding:72px 0}
-    .section-light{background:var(--light);color:var(--dark-text)}
-    .section-light .eyebrow{color:#666}
-    .section-light .lead,.section-light .body{color:#565656}
+    .body.light{color:var(--muted-inverse)}
 
-    .home-hero{min-height:calc(100vh - 84px);display:flex;align-items:center;background:
-      radial-gradient(circle at 20% 18%, rgba(255,255,255,.06), transparent 28%),
-      linear-gradient(180deg,#070707 0%,#0b0b0b 100%)}
-    .home-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:end}
-    .home-copy{padding:42px 0 24px 0}
-    .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-    .entry-card{border:1px solid var(--line);border-radius:30px;padding:28px;background:#080808;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;transition:.25s ease}
-    .entry-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.22)}
-    .entry-card h3{font-size:28px;line-height:1.05;font-weight:800;text-transform:uppercase;max-width:280px}
-    .entry-card p{font-size:17px;line-height:1.65;color:var(--muted);max-width:320px}
-    .entry-link{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff}
-    .home-aside{min-height:620px;border-left:1px solid rgba(255,255,255,.08);padding-left:42px;display:flex;flex-direction:column;justify-content:space-between}
-    .home-stat{padding:26px 0;border-bottom:1px solid rgba(255,255,255,.08)}
-    .home-stat:last-child{border-bottom:none}
-    .home-stat .k{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#9f9f9f;font-weight:700;margin-bottom:10px}
-    .home-stat .v{font-size:28px;font-weight:800;line-height:1.2}
+    .btn-light,.btn-dark,.btn-outline,.tool-btn,.calc-btn,.submit{display:inline-flex;align-items:center;justify-content:center;min-width:210px;padding:18px 36px;border-radius:999px;font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.2s ease}
+    .btn-light,.tool-btn,.calc-btn,.submit{background:#fff;color:#111;border:1px solid rgba(255,255,255,.2)}
+    .btn-light:hover,.tool-btn:hover,.calc-btn:hover,.submit:hover{background:#f1f1f1}
+    .btn-dark{background:#090909;color:#fff;border:1px solid rgba(255,255,255,.12)}
+    .btn-dark:hover{background:#151515}
+    .btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.18)}
+    .btn-outline:hover{border-color:rgba(255,255,255,.34)}
 
-    .split-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:end;min-height:calc(100vh - 84px)}
-    .status-panel{border:1px solid var(--line);border-radius:34px;padding:34px;background:rgba(255,255,255,.02);min-height:640px;display:flex;flex-direction:column;justify-content:space-between}
+    /* HOME */
+    .home-hero{background:#060606;color:#fff;position:relative;overflow:hidden}
+    .home-hero::before{content:"";position:absolute;inset:0;background:
+      radial-gradient(circle at 50% 18%, rgba(255,255,255,.06), transparent 24%),
+      linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size:cover, 64px 64px, 64px 64px;opacity:.52;pointer-events:none}
+    .home-hero-inner{min-height:calc(100vh - 84px);display:flex;flex-direction:column;justify-content:space-between;padding:48px 0 32px;position:relative;z-index:1}
+    .hero-logo-wrap{padding-top:6vh}
+    .hero-logo-wrap img{width:min(420px,42vw);height:auto}
+    .hero-statement{align-self:flex-start;max-width:420px;font-size:clamp(44px,5.4vw,78px);font-weight:800;line-height:.92;letter-spacing:-.055em;text-transform:lowercase}
+    .scroll-note{align-self:flex-end;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bdbdbd}
+    .scroll-note::after{content:'↓';display:block;text-align:right;margin-top:6px}
+
+    .mission-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:start}
+    .offering-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .offering-card{background:var(--off);border:1px solid var(--line-light);padding:26px;min-height:188px;display:flex;flex-direction:column;justify-content:space-between;transition:.22s ease}
+    .offering-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+    .offering-card h3{font-size:28px;line-height:1.04;font-weight:800}
+    .offering-card p{font-size:17px;line-height:1.65;color:var(--muted);max-width:320px}
+    .entry-link{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+
+    /* IMAGE HEROES */
+    .image-hero{position:relative;overflow:hidden}
+    .image-hero .image-bg{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat}
+    .image-hero .image-overlay{position:absolute;inset:0}
+    .image-hero .inner{position:relative;z-index:1;min-height:calc(92vh - 84px);display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:40px}
+    .image-hero .copy{max-width:760px;padding:90px 0}
+
+    .athlete-hero{background:#060606;color:#fff}
+    .athlete-hero .image-bg{background-image:url('athlete-hero.png');background-position:72% center;filter:grayscale(.86) contrast(1.04) brightness(.95)}
+    .athlete-hero .image-overlay{background:linear-gradient(to right, rgba(0,0,0,.90) 0%, rgba(0,0,0,.62) 42%, rgba(0,0,0,.16) 100%)}
+
+    .family-hero{background:#f7f5f1;color:#111}
+    .family-hero .image-bg{background-image:url('families-hero.png');background-position:82% center;filter:grayscale(1) contrast(1.02) brightness(1.02)}
+    .family-hero .image-overlay{background:linear-gradient(to right, rgba(247,245,241,.96) 0%, rgba(247,245,241,.82) 44%, rgba(247,245,241,.24) 100%)}
+
+    .hero-side-panel{justify-self:end;max-width:420px}
+    .status-panel{border:1px solid rgba(255,255,255,.12);border-radius:34px;padding:34px;background:rgba(255,255,255,.03);min-height:560px;display:flex;flex-direction:column;justify-content:space-between}
     .status-tags{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
-    .pill{padding:10px 16px;border:1px solid var(--line);border-radius:999px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#d8d8d8}
-    .quote-box{padding-top:28px;border-top:1px solid var(--line);font-size:28px;line-height:1.3;font-weight:700;letter-spacing:-.03em}
+    .pill{padding:10px 16px;border:1px solid rgba(255,255,255,.18);border-radius:999px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#e1e1e1}
+    .quote-box{padding-top:28px;border-top:1px solid rgba(255,255,255,.12);font-size:28px;line-height:1.3;font-weight:700;letter-spacing:-.03em}
+    .label-pill{display:inline-flex;align-items:center;justify-content:center;padding:8px 16px;border:1px solid rgba(0,0,0,.28);border-radius:999px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:20px}
 
-    .panel-dark{background:#090909;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+    /* GENERIC CARDS */
     .two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
-    .coach-card{border:1px solid var(--line);border-radius:var(--card-radius);padding:36px;background:#0b0b0b}
     .quad{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-    .stage-card,.service-card,.tool-card,.family-card,.lux-card{border:1px solid var(--line);border-radius:30px;padding:28px;background:#0a0a0a}
+    .cards-2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+    .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .training-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+    .calculator-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+    .trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .service-card,.stage-card,.tool-card,.family-card,.mini-card,.method-card,.launchpad,.reg-note,.calculator-card,.trust-card{border-radius:var(--radius);padding:28px}
+    .light-card{background:#fff;border:1px solid var(--line-light)}
+    .dark-card{background:var(--bg-soft);border:1px solid var(--line-dark);color:var(--text-inverse)}
+    .service-card h3,.stage-card h3,.tool-card h3,.family-card h3,.mini-card h4,.method-card h3,.launchpad h3,.calculator-card h3{font-size:24px;font-weight:800;line-height:1.12;margin-bottom:14px}
+    .service-card p,.stage-card p,.tool-card p,.family-card p,.mini-card p,.method-card p,.launchpad p,.calculator-card p,.trust-card p{font-size:17px;line-height:1.7}
+    .dark-card p,.dark-card ul,.dark-card .tool-output{color:var(--muted-inverse)}
+    .light-card p,.light-card ul,.light-card .tool-output{color:var(--muted)}
     .stage-card .num,.training-card .num{font-size:14px;letter-spacing:.12em;color:#9d9d9d;font-weight:600;margin-bottom:18px}
-    .stage-card h3,.service-card h3,.tool-card h3,.family-card h3,.lux-card h3{font-size:24px;font-weight:800;line-height:1.12;margin-bottom:16px}
-    .stage-card ul,.service-card ul,.training-card ul,.family-card ul,.lux-card ul{margin:0;padding-left:22px;color:var(--muted);font-size:17px;line-height:1.7}
-    .stage-card p,.service-card p,.tool-card p,.family-card p,.lux-card p,.training-card p{font-size:17px;line-height:1.7;color:var(--muted)}
+    .stage-card ul,.training-card ul{margin:0;padding-left:22px;font-size:17px;line-height:1.7}
     .section-head{margin-bottom:42px}
     .section-head p{max-width:980px}
 
-    .cards-2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-    .cards-4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-    .training-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-    .training-card{border:1px solid rgba(255,255,255,.12);border-radius:40px;padding:32px;background:#070707;min-height:420px;display:flex;flex-direction:column}
+    .training-card{border:1px solid rgba(255,255,255,.12);border-radius:40px;padding:32px;background:#070707;min-height:420px;display:flex;flex-direction:column;color:#fff}
     .training-card h3{font-size:26px;line-height:1.1;font-weight:800;text-transform:uppercase;margin-bottom:26px}
-    .training-card p{margin-bottom:24px}
-    .training-cta{display:inline-block;margin-top:28px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.35);font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .training-card p{font-size:17px;line-height:1.7;color:var(--muted-inverse);margin-bottom:24px}
+    .training-card ul{color:var(--muted-inverse)}
+    .training-cta{display:inline-block;margin-top:28px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.24);font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#fff}
 
-    .trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .trust-card{border:1px solid var(--line);border-radius:26px;padding:26px;background:#0a0a0a;text-align:center}
+    /* TOOLS + CALCULATORS */
+    .tool-card textarea,.tool-card input,.calculator-card input{width:100%;border-radius:18px;padding:16px 18px;font:inherit;margin-top:12px}
+    .tool-card.dark-card textarea,.tool-card.dark-card input{background:#060606;border:1px solid rgba(255,255,255,.1);color:#fff}
+    .tool-card.light-card textarea,.tool-card.light-card input,.calculator-card.light-card input{background:#fff;border:1px solid rgba(0,0,0,.1);color:#111}
+    .tool-card textarea{min-height:120px;resize:vertical}
+    .tool-output{margin-top:18px;border-radius:18px;padding:18px;min-height:100px;line-height:1.7}
+    .tool-card.dark-card .tool-output{background:#050505;border:1px solid rgba(255,255,255,.08)}
+    .tool-card.light-card .tool-output{background:#fff;border:1px solid rgba(0,0,0,.08)}
+    .calc-fields{display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px}
+    .calc-results{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:20px}
+    .result-box{border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:16px;background:#fff}
+    .result-box .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-bottom:8px;font-weight:700}
+    .result-box .v{font-size:28px;font-weight:800;line-height:1.1}
+
+    .trust-card{background:#fff;border:1px solid rgba(0,0,0,.08);text-align:center}
     .trust-card strong{display:block;font-size:46px;line-height:1;font-weight:800;margin-bottom:10px}
     .trust-card span{display:block;font-size:15px;letter-spacing:.15em;text-transform:uppercase;font-weight:800;margin-bottom:10px}
-    .trust-card p{font-size:16px;line-height:1.7;color:var(--muted)}
 
-    .family-hero{padding-top:84px}
-    .family-shell{background:var(--light);color:var(--dark-text)}
-    .family-shell .container{position:relative}
-    .label-pill{display:inline-flex;align-items:center;justify-content:center;padding:8px 16px;border:1px solid rgba(0,0,0,.3);border-radius:999px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:20px}
-    .family-center{text-align:center;max-width:1100px;margin:0 auto}
-    .family-center .title-lg{margin-bottom:16px}
-    .card-white{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;box-shadow:var(--shadow)}
-    .method-shell{margin-top:46px;overflow:hidden}
-    .method-head{background:#0b1730;color:#fff;padding:24px 26px;display:flex;justify-content:space-between;align-items:start;gap:24px}
-    .method-head .title{font-size:22px;font-weight:800;line-height:1.15;margin-bottom:10px}
-    .method-head p{font-size:15px;line-height:1.7;color:#d7dbea;max-width:780px}
-    .method-icon{width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:18px}
+    /* FAMILIES */
+    .method-shell{margin-top:46px;border:1px solid rgba(0,0,0,.08);border-radius:24px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+    .method-head{background:#111;color:#fff;padding:28px 30px;display:flex;justify-content:space-between;align-items:start;gap:24px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .method-head .title{font-size:28px;font-weight:800;line-height:1.15;margin-bottom:10px}
+    .method-head p{font-size:16px;line-height:1.7;color:#d0d0d0;max-width:780px}
+    .method-icon{width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:18px;background:#191919}
     .method-body{padding:18px;background:#fff}
-    .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .method-card{border:1px solid rgba(0,0,0,.12);border-radius:10px;padding:18px;background:#f7f7f7}
-    .method-card .mini{width:28px;height:28px;border-radius:6px;background:#ece7db;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-bottom:14px}
-    .method-card h3{font-size:20px;line-height:1.1;font-weight:800;margin-bottom:8px}
-    .method-card h4{font-size:15px;font-weight:700;margin-bottom:8px}
-    .method-card p{font-size:14px;line-height:1.6;color:#5b5b5b}
-    .family-section{padding:56px 0}
-    .family-title-center{text-align:center;max-width:950px;margin:0 auto 34px auto}
-    .family-title-center .eyebrow{justify-content:center;color:#666}
-    .family-title-center .eyebrow::before{display:none}
-    .family-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-    .family-card-light{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:24px;box-shadow:0 12px 24px rgba(0,0,0,.08)}
-    .family-card-light .icon{width:32px;height:32px;border-radius:6px;background:#ece7db;margin-bottom:16px}
-    .family-card-light h3{font-size:22px;line-height:1.18;font-weight:800;margin-bottom:12px}
-    .family-card-light p{font-size:15px;line-height:1.7;color:#5b5b5b}
-    .diff-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:18px}
-    .diff-main{background:#0b1730;color:#fff;border-radius:14px;padding:28px;position:relative;overflow:hidden;box-shadow:0 14px 28px rgba(0,0,0,.15)}
-    .diff-main:after{content:'⚖';position:absolute;right:26px;bottom:10px;font-size:96px;opacity:.08}
-    .diff-main h3{font-size:24px;font-weight:800;margin-bottom:12px;color:#d7b76a}
-    .diff-main p{font-size:16px;line-height:1.7;max-width:700px;color:#e8ecf6;margin-bottom:18px}
-    .check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px;font-size:15px;line-height:1.6;font-weight:600}
-    .check-grid div::before{content:'✓';margin-right:8px;color:#d7b76a}
-    .launchpad{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:24px;box-shadow:0 12px 24px rgba(0,0,0,.08)}
-    .launchpad h3{font-size:22px;line-height:1.18;font-weight:800;margin:16px 0 10px}
-    .launchpad p{font-size:15px;line-height:1.7;color:#5b5b5b}
-    .reg-note{margin-top:18px;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px 20px;font-size:13px;line-height:1.7;color:#666}
-    .red-carpet{margin-top:24px;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:28px;box-shadow:0 12px 24px rgba(0,0,0,.08)}
-    .red-carpet .eyebrow{color:#666;margin-bottom:10px}
-    .red-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
-    .red-grid .mini-card{background:#f4f4f4;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:18px}
-    .red-grid h4{font-size:16px;font-weight:800;line-height:1.3;margin-bottom:8px}
-    .red-grid p{font-size:14px;line-height:1.6;color:#5d5d5d}
-    .cta-dark{margin-top:26px;background:#040d24;color:#fff;border-radius:16px;padding:44px 24px;text-align:center;box-shadow:0 16px 32px rgba(0,0,0,.15)}
-    .cta-dark h3{font-size:44px;line-height:1.02;font-weight:800;letter-spacing:-.04em;margin-bottom:12px}
-    .cta-dark p{max-width:700px;margin:0 auto 24px auto;font-size:16px;line-height:1.7;color:#d8dff1}
-    .btn-light{display:inline-flex;align-items:center;justify-content:center;min-width:210px;padding:18px 36px;border-radius:999px;background:#fff;color:#111;border:1px solid rgba(255,255,255,.25);font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-    .btn-light:hover{background:#f3f3f3}
+    .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .method-card{background:var(--off);border:1px solid rgba(0,0,0,.08)}
+    .method-card .mini{width:28px;height:28px;border-radius:6px;background:#1b1b1b;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-bottom:14px}
+    .method-card h4{font-size:15px;font-weight:700;margin-bottom:8px;color:#171717}
 
-    .team-layout{display:grid;grid-template-columns:380px 1fr;gap:36px;align-items:start}
+    .family-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .family-card{background:var(--off);border:1px solid rgba(0,0,0,.08);box-shadow:var(--shadow)}
+    .family-card .icon,.launchpad .icon{width:32px;height:32px;border-radius:8px;background:#fff;margin-bottom:16px;border:1px solid rgba(0,0,0,.06)}
+    .diff-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:18px}
+    .diff-main{background:#0d0d0d;color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+    .diff-main:after{content:'⚖';position:absolute;right:26px;bottom:10px;font-size:96px;opacity:.06}
+    .diff-main h3{font-size:28px;font-weight:800;margin-bottom:12px;color:var(--gold)}
+    .diff-main p{font-size:16px;line-height:1.7;max-width:700px;color:#e8e8e8;margin-bottom:18px}
+    .check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px;font-size:15px;line-height:1.6;font-weight:600}
+    .check-grid div::before{content:'✓';margin-right:8px;color:var(--gold)}
+    .launchpad{background:#fff;border:1px solid rgba(0,0,0,.08);box-shadow:var(--shadow)}
+    .reg-note{margin-top:18px;background:#fff;border:1px solid rgba(0,0,0,.08);font-size:13px;line-height:1.7;color:#666}
+    .red-carpet{margin-top:24px;border:1px solid rgba(0,0,0,.08);border-radius:20px;padding:28px;background:#fff;box-shadow:var(--shadow)}
+    .red-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+    .mini-card{background:var(--off);border:1px solid rgba(0,0,0,.08)}
+    .cta-dark{margin-top:26px;background:#050505;color:#fff;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:44px 24px;text-align:center;box-shadow:var(--shadow)}
+    .cta-dark h3{font-size:44px;line-height:1.02;font-weight:800;letter-spacing:-.04em;margin-bottom:12px}
+    .cta-dark p{max-width:700px;margin:0 auto 24px auto;font-size:16px;line-height:1.7;color:#d8d8d8}
+
+    /* TEAM */
+    .team-section{background:#efefef;color:#111}
+    .team-layout{display:grid;grid-template-columns:420px 1fr;gap:92px;align-items:start}
     .team-intro{position:sticky;top:120px}
-    .team-list{display:grid;grid-template-columns:1fr;gap:28px}
-    .team-card{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:start}
-    .team-left .photo{background:#ddd;border-radius:0;overflow:hidden;aspect-ratio:1.15/1;border:1px solid rgba(0,0,0,.08)}
+    .team-list{display:grid;grid-template-columns:1fr;gap:36px;padding-left:10px}
+    .team-card{display:grid;grid-template-columns:390px 1fr;gap:26px;align-items:start}
+    .team-left .photo{background:#ddd;overflow:hidden;aspect-ratio:1.15/1;border:1px solid rgba(0,0,0,.08)}
     .team-left .photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
-    .team-meta{background:#4d4d4d;color:#fff;border-bottom-left-radius:38px;border-bottom-right-radius:38px;border-top-left-radius:0;border-top-right-radius:0;padding:20px 22px;min-height:132px}
+    .team-meta{background:#4d4d4d;color:#fff;border-bottom-left-radius:38px;border-bottom-right-radius:38px;padding:20px 22px;min-height:132px}
     .team-meta h3{font-size:27px;line-height:1.05;font-weight:800;margin-bottom:6px}
     .team-meta p{font-size:14px;line-height:1.4;color:#f2d48b;font-weight:600}
-    .team-bio{background:#e9e7e2;border:1px solid rgba(0,0,0,.08);padding:26px;border-radius:0;min-height:310px}
+    .team-bio{background:#e9e7e2;border:1px solid rgba(0,0,0,.08);padding:26px;min-height:310px}
     .team-bio p{font-size:16px;line-height:1.75;color:#4e4e4e;margin-bottom:18px}
     .tags{display:flex;flex-wrap:wrap;gap:8px}
     .tag{font-size:14px;color:#a76a00}
 
-    .contact-shell{min-height:calc(100vh - 84px);display:grid;place-items:center;background:linear-gradient(180deg,#080808,#0b0b0b)}
+    /* CONTACT */
+    .contact-shell{min-height:calc(100vh - 84px);display:grid;place-items:center;background:#0b0b0b;color:#fff}
     .contact-wrap{width:min(920px,100%)}
-    .contact-box{border:1px solid rgba(255,255,255,.08);background:#0b0b0b;border-radius:36px;padding:40px}
+    .contact-box{border:1px solid rgba(255,255,255,.08);background:#101010;border-radius:36px;padding:40px}
     .contact-form{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
     .contact-form .full{grid-column:1/-1}
     .field label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#9e9e9e;margin-bottom:10px}
     .field input,.field select,.field textarea{width:100%;background:#060606;border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px 18px;color:#fff;font:inherit}
     .field textarea{min-height:150px;resize:vertical}
-    .submit{width:100%;padding:20px;border-radius:999px;border:none;background:#fff;color:#111;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;cursor:pointer}
     .contact-meta{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:24px;margin-top:24px;border-top:1px solid rgba(255,255,255,.08);color:#b6b6b6}
 
     footer{background:#030303;color:#7f7f7f;border-top:1px solid rgba(255,255,255,.08);padding:26px 0;text-align:center;font-size:13px}
 
-    @media (max-width: 1180px){
-      .home-grid,.split-hero,.team-layout,.team-card,.diff-grid{grid-template-columns:1fr}
-      .quad,.cards-4,.training-grid{grid-template-columns:repeat(2,1fr)}
-      .cards-3,.family-grid,.method-grid,.red-grid,.trust-grid,.cards-2{grid-template-columns:1fr}
-      .home-aside{min-height:auto;border-left:none;padding-left:0;padding-top:30px;border-top:1px solid rgba(255,255,255,.08)}
+    @media (max-width: 1260px){
+      .mission-grid,.image-hero .inner,.two-col,.diff-grid,.team-layout,.team-card{grid-template-columns:1fr}
+      .cards-3,.method-grid,.red-grid,.trust-grid,.cards-2,.calculator-grid,.family-grid{grid-template-columns:1fr}
+      .quad,.training-grid{grid-template-columns:repeat(2,1fr)}
       .team-intro{position:static}
-      .header-inner{grid-template-columns:220px 1fr 160px}
+      .team-list{padding-left:0}
+      .image-hero .copy{padding:70px 0}
+      .hero-side-panel{justify-self:start;max-width:100%}
     }
     @media (max-width: 880px){
       .container{width:min(var(--max),calc(100vw - 34px))}
@@ -200,12 +242,14 @@
       .menu-toggle{display:block}
       .mobile-menu.show{display:block}
       .header-inner{grid-template-columns:1fr auto}
-      .home-grid,.split-hero,.two-col,.contact-form,.quad,.cards-4,.training-grid,.family-grid,.method-grid,.red-grid,.cards-2,.trust-grid{grid-template-columns:1fr}
+      .offering-grid,.quad,.training-grid,.contact-form,.cards-2,.trust-grid,.calculator-grid,.method-grid,.red-grid,.family-grid{grid-template-columns:1fr}
       .section{padding:72px 0}
-      .home-hero,.split-hero,.contact-shell{min-height:auto}
+      .home-hero,.image-hero .inner,.contact-shell{min-height:auto}
       .status-panel{min-height:auto}
       .team-card{grid-template-columns:1fr}
       .cta-dark h3{font-size:34px}
+      .brand img{height:42px}
+      .hero-logo-wrap img{width:min(300px,62vw)}
     }
   </style>
 </head>
@@ -235,101 +279,84 @@
 
   <main>
     <section id="view-home" class="view active">
-      <div class="home-hero section">
-        <div class="container home-grid">
-          <div class="home-copy">
-            <div class="eyebrow">Independent. Transparent. Long-term.</div>
-            <h1 class="hero-title">Independent.<br>Transparent.<br>true.</h1>
-            <p class="lead" style="max-width:900px;margin-top:26px;">true.industries is an independent financial support boutique based in Luxembourg. We help athletes, entrepreneurs, and international families in upping their game with full integrity in a complex financial world — be it on the pitch, in the boardroom or in life.</p>
-            <div class="cards-3" style="margin-top:44px;">
-              <a href="#" onclick="navigateTo('athletes');return false;" class="entry-card">
-                <div>
-                  <h3>Athletes</h3>
-                  <p>Maximize career earnings and secure your post-game legacy.</p>
-                </div>
-                <div class="entry-link">Explore</div>
-              </a>
-              <a href="#" onclick="navigateTo('families');return false;" class="entry-card">
-                <div>
-                  <h3>Families & Entrepreneurs</h3>
-                  <p>Deal financing, succession planning, and multi-jurisdictional wealth structuring.</p>
-                </div>
-                <div class="entry-link">Explore</div>
-              </a>
-              <a href="#" onclick="navigateTo('team');return false;" class="entry-card">
-                <div>
-                  <h3>The Team</h3>
-                  <p>Meet the experts dedicated to your financial success and peace of mind.</p>
-                </div>
-                <div class="entry-link">Meet us</div>
-              </a>
-            </div>
+      <div class="home-hero">
+        <div class="container home-hero-inner">
+          <div class="hero-statement">independent<br>transparent<br>true.</div>
+          <div class="scroll-note">Scroll</div>
+        </div>
+      </div>
+
+      <div class="section-light section">
+        <div class="container mission-grid">
+          <div>
+            <div class="eyebrow">Mission</div>
+            <h2 class="title-lg">Independent financial architecture for lives in motion</h2>
+            <p class="lead" style="margin-top:24px;max-width:820px;">true.industries is an independent financial support boutique based in Luxembourg. We help athletes, entrepreneurs, and international families in upping their game with full integrity in a complex financial world — be it on the pitch, in the boardroom or in life.</p>
           </div>
-          <aside class="home-aside">
-            <div>
-              <div class="home-stat"><div class="k">Athletes</div><div class="v">360° support from rookie to legacy</div></div>
-              <div class="home-stat"><div class="k">Families</div><div class="v">Independent supervision for complex ecosystems</div></div>
-              <div class="home-stat"><div class="k">Luxembourg</div><div class="v">European base for family-office advisory logic</div></div>
-            </div>
-          </aside>
+          <div class="offering-grid">
+            <a href="#" onclick="navigateTo('athletes');return false;" class="offering-card"><div><h3>Athletes</h3><p>Maximize career earnings and secure your post-game legacy.</p></div><div class="entry-link">Explore →</div></a>
+            <a href="#" onclick="navigateTo('families');return false;" class="offering-card"><div><h3>Families & Entrepreneurs</h3><p>Deal financing, succession planning, and multi-jurisdictional wealth structuring.</p></div><div class="entry-link">Explore →</div></a>
+            <a href="#" onclick="navigateTo('team');return false;" class="offering-card"><div><h3>The Team</h3><p>Meet the experts dedicated to your financial success and peace of mind.</p></div><div class="entry-link">Meet us →</div></a>
+            <a href="#" onclick="navigateTo('contact');return false;" class="offering-card"><div><h3>Contact</h3><p>Start a confidential conversation with true.industries.</p></div><div class="entry-link">Contact →</div></a>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="view-athletes" class="view">
-      <div class="section">
-        <div class="container split-hero">
-          <div>
-            <div class="eyebrow">360° Empowerment For Athletes</div>
+      <div class="image-hero athlete-hero">
+        <div class="image-bg"></div>
+        <div class="image-overlay"></div>
+        <div class="container inner">
+          <div class="copy">
+            <div class="eyebrow light">360° Empowerment For Athletes</div>
             <h1 class="hero-title" style="font-size:clamp(50px,8vw,118px)">360° Financial Performance For Elite Athletes</h1>
-            <p class="lead" style="margin-top:26px;max-width:780px;">In a complex financial world, we support athletes from their first contract to their lasting legacy. Integrity, empowerment and performance drive us.</p>
+            <p class="lead light" style="margin-top:26px;max-width:780px;">In a complex financial world, we support athletes from their first contract to their lasting legacy. Integrity, empowerment and performance drive us.</p>
             <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:34px;">
               <a href="#" onclick="navigateTo('contact');return false;" class="btn-light">Start Your Strategy</a>
-              <a href="#lifecycle" class="btn-light" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.18)">Explore The Path</a>
+              <a href="#lifecycle" class="btn-outline">Explore The Path</a>
             </div>
           </div>
-          <div class="status-panel">
-            <div>
-              <div class="eyebrow" style="margin-bottom:8px">Status</div>
-              <div class="title-md" style="margin-bottom:18px;text-transform:uppercase">Game On</div>
-              <div class="status-tags">
-                <span class="pill">Asset Management</span>
-                <span class="pill">Risk Protection</span>
-                <span class="pill">Tax Optimization</span>
+          <div class="hero-side-panel">
+            <div class="status-panel">
+              <div>
+                <div class="eyebrow light" style="margin-bottom:8px">Status</div>
+                <div class="title-md" style="margin-bottom:18px;text-transform:uppercase">Game On</div>
+                <div class="status-tags"><span class="pill">Asset Management</span><span class="pill">Risk Protection</span><span class="pill">Tax Optimization</span></div>
               </div>
+              <div class="quote-box">“Treat your wealth like your sport”</div>
             </div>
-            <div class="quote-box">“Treat your wealth like your sport”</div>
           </div>
         </div>
       </div>
 
-      <div class="section panel-dark">
+      <div class="section-light section">
         <div class="container two-col">
           <div>
             <div class="eyebrow">Reality</div>
             <h2 class="title-lg">The Game Ends. The Bills Don’t.</h2>
             <p class="body" style="margin-top:22px;max-width:740px;">Earning years are short. Retirement years are long. Planning is urgent. The reality is harsh for those unprepared.</p>
             <div class="cards-2" style="margin-top:30px;">
-              <div class="service-card"><h3>72%</h3><p>Of athletes are concerned about their financial future after retirement.</p></div>
-              <div class="service-card"><h3>Career Risks</h3><p>Unexpected injuries or loss of license can end income streams instantly.</p></div>
-              <div class="service-card"><h3>The “Parasite” Effect</h3><p>Bad advice and hangers-on deplete wealth faster than you earn it.</p></div>
+              <div class="light-card service-card"><h3>72%</h3><p>Of athletes are concerned about their financial future after retirement.</p></div>
+              <div class="light-card service-card"><h3>Career Risks</h3><p>Unexpected injuries or loss of license can end income streams instantly.</p></div>
+              <div class="light-card service-card"><h3>The “Parasite” Effect</h3><p>Bad advice and hangers-on deplete wealth faster than you earn it.</p></div>
             </div>
           </div>
-          <div class="coach-card">
+          <div class="light-card service-card" style="padding:36px;">
             <div class="eyebrow">Coaching</div>
             <h2 class="title-md" style="text-transform:uppercase">You Need A Coach</h2>
             <p class="body" style="margin-top:18px;">You wouldn't step onto the field without a coach, a strategy and discipline. Why manage your wealth without the same level of professional support?</p>
             <div class="cards-2" style="margin-top:28px;">
-              <div class="service-card"><h3>Strategy</h3></div>
-              <div class="service-card"><h3>Discipline</h3></div>
-              <div class="service-card"><h3>Performance</h3></div>
-              <div class="service-card"><h3>Vision</h3></div>
+              <div class="light-card service-card"><h3>Strategy</h3></div>
+              <div class="light-card service-card"><h3>Discipline</h3></div>
+              <div class="light-card service-card"><h3>Performance</h3></div>
+              <div class="light-card service-card"><h3>Vision</h3></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="section" id="lifecycle">
+      <div class="section-off section" id="lifecycle">
         <div class="container">
           <div class="section-head">
             <div class="eyebrow">Athlete Lifecycle</div>
@@ -337,84 +364,47 @@
             <p class="body" style="margin-top:18px;">Your financial needs change as your career evolves. We stay with you at every step.</p>
           </div>
           <div class="quad">
-            <div class="stage-card"><div class="num">01</div><h3>Rookie</h3><ul><li>Build good habits</li><li>Protect against risks</li></ul></div>
-            <div class="stage-card"><div class="num">02</div><h3>Peak Performance</h3><ul><li>Maximize revenue</li><li>Secure assets</li></ul></div>
-            <div class="stage-card"><div class="num">03</div><h3>Transition</h3><ul><li>Plan second career</li><li>Prepare for change</li></ul></div>
-            <div class="stage-card"><div class="num">04</div><h3>Legend</h3><ul><li>Sustain wealth</li><li>Secure legacy</li></ul></div>
+            <div class="light-card stage-card"><div class="num">01</div><h3>Rookie</h3><ul><li>Build good habits</li><li>Protect against risks</li></ul></div>
+            <div class="light-card stage-card"><div class="num">02</div><h3>Peak Performance</h3><ul><li>Maximize revenue</li><li>Secure assets</li></ul></div>
+            <div class="light-card stage-card"><div class="num">03</div><h3>Transition</h3><ul><li>Plan second career</li><li>Prepare for change</li></ul></div>
+            <div class="light-card stage-card"><div class="num">04</div><h3>Legend</h3><ul><li>Sustain wealth</li><li>Secure legacy</li></ul></div>
           </div>
         </div>
       </div>
 
-      <div class="section panel-dark">
+      <div class="section-dark section">
         <div class="container">
           <div class="section-head">
-            <div class="eyebrow">Our Strategy</div>
+            <div class="eyebrow light">Our Strategy</div>
             <h2 class="title-lg">Complete Defensive & Offensive Strategy</h2>
           </div>
           <div class="cards-2">
-            <div class="service-card"><h3>Asset Management</h3><p>Personalized investment strategies with regulated partners that grow your wealth while you sleep.</p></div>
-            <div class="service-card"><h3>Risk Protection</h3><p>Comprehensive insurance for international life, injuries, income loss, and professional liability.</p></div>
-            <div class="service-card"><h3>Tax Optimization</h3><p>Smart structuring to keep more of what you earn, legally and efficiently. Global compliance.</p></div>
-            <div class="service-card"><h3>2nd Career</h3><p>Branding, media training, and education to prepare for life after sports. Building your business.</p></div>
+            <div class="dark-card service-card"><h3>Asset Management</h3><p>Personalized investment strategies with regulated partners that grow your wealth while you sleep.</p></div>
+            <div class="dark-card service-card"><h3>Risk Protection</h3><p>Comprehensive insurance for international life, injuries, income loss, and professional liability.</p></div>
+            <div class="dark-card service-card"><h3>Tax Optimization</h3><p>Smart structuring to keep more of what you earn, legally and efficiently. Global compliance.</p></div>
+            <div class="dark-card service-card"><h3>2nd Career</h3><p>Branding, media training, and education to prepare for life after sports. Building your business.</p></div>
           </div>
         </div>
       </div>
 
-      <div class="section panel-dark">
+      <div class="section-dark section">
         <div class="container">
           <div class="section-head">
-            <div class="eyebrow">The Training Camp</div>
+            <div class="eyebrow light">The Training Camp</div>
             <h2 class="title-xl">360° Empowerment Workshops</h2>
-            <p class="lead" style="margin-top:20px;max-width:1200px">We don't just manage your wealth; we teach you how to master it. Bespoke training for individuals, clubs, and federations.</p>
+            <p class="lead light" style="margin-top:20px;max-width:1200px">We don't just manage your wealth; we teach you how to master it. Bespoke training for individuals, clubs, and federations.</p>
           </div>
           <div class="training-grid">
-            <div class="training-card">
-              <div class="num">01</div>
-              <h3>Take Control Of Your Finances</h3>
-              <p>No jargon. No products. Just the skills to stay in the driver's seat of your financial life.</p>
-              <ul>
-                <li>Basics: Budgeting & protection strategies.</li>
-                <li>Investing: Asset management coaching.</li>
-                <li>Global Life: Taxes, contracts & currencies.</li>
-              </ul>
-            </div>
-            <div class="training-card">
-              <div class="num">02</div>
-              <h3>Own Your Story</h3>
-              <p>Don't fear the mic. Use it to your advantage. Turn media attention into opportunity, not risk.</p>
-              <ul>
-                <li>Confidence: Speak in any high-stakes situation.</li>
-                <li>Crisis: Manage social media storms.</li>
-                <li>Expertise: Trained by elite journalists.</li>
-              </ul>
-            </div>
-            <div class="training-card">
-              <div class="num">03</div>
-              <h3>Prepare Your Future</h3>
-              <p>The earlier you plant the tree, the stronger it grows. Connect today's performance to tomorrow's goals.</p>
-              <ul>
-                <li>Understand: Clarify strengths & core values.</li>
-                <li>Project: Define your vision beyond sport.</li>
-                <li>Act: Build your post-career roadmap now.</li>
-              </ul>
-            </div>
-            <div class="training-card">
-              <div class="num">04</div>
-              <h3>Monetize Your Brand</h3>
-              <p>Turn your visibility into long-term value through stronger positioning, sponsorship logic, and personal brand development.</p>
-              <ul>
-                <li>Sponsorship positioning</li>
-                <li>Media value creation</li>
-                <li>Personal brand architecture</li>
-                <li>Post-career continuity</li>
-              </ul>
-            </div>
+            <div class="training-card"><div class="num">01</div><h3>Take Control Of Your Finances</h3><p>No jargon. No products. Just the skills to stay in the driver's seat of your financial life.</p><ul><li>Basics: Budgeting & protection strategies.</li><li>Investing: Asset management coaching.</li><li>Global Life: Taxes, contracts & currencies.</li></ul></div>
+            <div class="training-card"><div class="num">02</div><h3>Own Your Story</h3><p>Don't fear the mic. Use it to your advantage. Turn media attention into opportunity, not risk.</p><ul><li>Confidence: Speak in any high-stakes situation.</li><li>Crisis: Manage social media storms.</li><li>Expertise: Trained by elite journalists.</li></ul></div>
+            <div class="training-card"><div class="num">03</div><h3>Prepare Your Future</h3><p>The earlier you plant the tree, the stronger it grows. Connect today's performance to tomorrow's goals.</p><ul><li>Understand: Clarify strengths & core values.</li><li>Project: Define your vision beyond sport.</li><li>Act: Build your post-career roadmap now.</li></ul></div>
+            <div class="training-card"><div class="num">04</div><h3>Monetize Your Brand</h3><p>Turn your visibility into long-term value through stronger positioning, sponsorship logic, and personal brand development.</p><ul><li>Sponsorship positioning</li><li>Media value creation</li><li>Personal brand architecture</li><li>Post-career continuity</li></ul></div>
           </div>
           <a href="#" onclick="navigateTo('contact');return false;" class="training-cta">Book A Workshop For Your Club</a>
         </div>
       </div>
 
-      <div class="section">
+      <div class="section-light section">
         <div class="container">
           <div class="section-head">
             <div class="eyebrow">Powered By Gemini AI</div>
@@ -422,14 +412,28 @@
             <p class="body" style="margin-top:18px;">Smart tools to decode your finances and build your future.</p>
           </div>
           <div class="cards-3">
-            <div class="tool-card"><h3>The Playbook Decoder</h3><p>Confused by a contract clause or financial term? Paste it here to get a plain English explanation.</p></div>
-            <div class="tool-card"><h3>Legend Legacy Builder</h3><p>Thinking about your 2nd career? Tell us your interests, and we'll generate business ideas for you.</p></div>
-            <div class="tool-card"><h3>The Spin Doctor</h3><p>Prepare for the press. Tell us the situation, and we'll generate professional talking points.</p></div>
+            <div class="light-card tool-card"><h3>The Playbook Decoder</h3><p>Confused by a contract clause or financial term? Paste it here to get a plain English explanation.</p><textarea id="decoderInput" placeholder="e.g. Force majeure, annuity due, image rights..."></textarea><button class="tool-btn" onclick="runTool('decoder')">Translate</button><div class="tool-output" id="decoderOutput">Paste a term or clause and the output will appear here. Insert your Gemini API logic later if needed.</div></div>
+            <div class="light-card tool-card"><h3>Legend Legacy Builder</h3><p>Thinking about your 2nd career? Tell us your interests, and we'll generate business ideas for you.</p><textarea id="legacyInput" placeholder="e.g. fitness, coffee, racing, media, coaching..."></textarea><button class="tool-btn" onclick="runTool('legacy')">Generate Ideas</button><div class="tool-output" id="legacyOutput">Describe interests and future ideas will appear here. Replace with Gemini API later if desired.</div></div>
+            <div class="light-card tool-card"><h3>The Spin Doctor</h3><p>Prepare for the press. Tell us the situation, and we'll generate professional talking points.</p><textarea id="spinInput" placeholder="e.g. team lost the final, transfer rumors, injury return..."></textarea><button class="tool-btn" onclick="runTool('spin')">Draft Statement</button><div class="tool-output" id="spinOutput">Enter a media scenario and draft talking points will appear here. Replace with Gemini API later if desired.</div></div>
           </div>
         </div>
       </div>
 
-      <div class="section panel-dark">
+      <div class="section-off section">
+        <div class="container">
+          <div class="section-head">
+            <div class="eyebrow">Calculators</div>
+            <h2 class="title-lg">Financial Simulators</h2>
+            <p class="body" style="margin-top:18px;">Use simple scenario tools to understand the long-term impact of capital growth and disciplined monthly saving.</p>
+          </div>
+          <div class="calculator-grid">
+            <div class="light-card calculator-card"><h3>Investment Reality Check</h3><p>At your performance level, how much will your capital grow?</p><div class="calc-fields"><input type="number" id="lumpPrincipal" placeholder="Starting Capital (€)" value="100000"><input type="number" id="lumpReturn" placeholder="Gross Return (%)" value="7" step="0.1"><input type="number" id="lumpFees" placeholder="Fees (%)" value="1" step="0.1"></div><button class="calc-btn" onclick="calcLumpSum()">Calculate</button><div class="calc-results"><div class="result-box"><div class="k">Value After 10 Years</div><div class="v" id="lump10">—</div></div><div class="result-box"><div class="k">Value After 30 Years</div><div class="v" id="lump30">—</div></div></div></div>
+            <div class="light-card calculator-card"><h3>The Monthly Grind</h3><p>Consistency wins championships. See the power of monthly contributions.</p><div class="calc-fields"><input type="number" id="monthlyContribution" placeholder="Monthly Savings (€)" value="500"><input type="number" id="monthlyReturn" placeholder="Gross Return (%)" value="7" step="0.1"><input type="number" id="monthlyFees" placeholder="Fees (%)" value="1" step="0.1"></div><button class="calc-btn" onclick="calcMonthly()">Calculate</button><div class="calc-results"><div class="result-box"><div class="k">Value After 10 Years</div><div class="v" id="monthly10">—</div></div><div class="result-box"><div class="k">Value After 30 Years</div><div class="v" id="monthly30">—</div></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-light section">
         <div class="container">
           <div class="section-head">
             <div class="eyebrow">Trust</div>
@@ -444,93 +448,50 @@
       </div>
     </section>
 
-    <section id="view-families" class="view family-shell">
-      <div class="family-hero section-tight">
-        <div class="container">
-          <div class="family-center">
+    <section id="view-families" class="view">
+      <div class="image-hero family-hero">
+        <div class="image-bg"></div>
+        <div class="image-overlay"></div>
+        <div class="container inner">
+          <div class="copy">
             <div class="label-pill">Family Office</div>
             <h1 class="title-lg">Entrepreneurs & International Families</h1>
-            <p class="body" style="margin:18px auto 0 auto;max-width:960px;">The architect of your financial ecosystem — independent, conflict-free coordination built for multi-jurisdictional complexity.</p>
-            <p class="body" style="margin:12px auto 0 auto;max-width:980px;">We don’t sell products and we don’t manage assets. We supervise and audit the ecosystem that does — so your structuring, governance, and investment setup stays aligned with your long-term goals.</p>
+            <p class="body" style="margin-top:18px;max-width:860px;">The architect of your financial ecosystem — independent, conflict-free coordination built for multi-jurisdictional complexity.</p>
+            <p class="body" style="margin-top:12px;max-width:920px;">We don’t sell products and we don’t manage assets. We supervise and audit the ecosystem that does — so your structuring, governance, and investment setup stays aligned with your long-term goals.</p>
           </div>
+          <div></div>
+        </div>
+      </div>
 
-          <div class="method-shell card-white">
-            <div class="method-head">
-              <div>
-                <div class="title">The Protective Shield methodology</div>
-                <p>Institutional-grade supervision through a strict segregation-of-duties model.</p>
-              </div>
-              <div class="method-icon">🛡</div>
-            </div>
+      <div class="section-light section">
+        <div class="container">
+          <div class="method-shell">
+            <div class="method-head"><div><div class="title">The Protective Shield methodology</div><p>Institutional-grade supervision through a strict segregation-of-duties model.</p></div><div class="method-icon">🛡</div></div>
             <div class="method-body">
               <div class="method-grid">
-                <div class="method-card">
-                  <div class="mini">1</div>
-                  <h3>Upstream</h3>
-                  <h4>Partner selection & due diligence</h4>
-                  <p>Rigorous selection of regulated asset managers and banks, plus mandate & fee negotiations.</p>
-                </div>
-                <div class="method-card">
-                  <div class="mini">2</div>
-                  <h3>Execution</h3>
-                  <h4>Delivered by regulated partners</h4>
-                  <p>Clients mandate execution directly to regulated managers. true. does not transmit orders and does not intervene in investment decisions.</p>
-                </div>
-                <div class="method-card">
-                  <div class="mini">3</div>
-                  <h3>Downstream</h3>
-                  <h4>Technical audits & consolidated supervision</h4>
-                  <p>Mandate compliance, performance vs. benchmark, fee/cost audits, consolidated reporting and risk monitoring.</p>
-                </div>
+                <div class="method-card"><div class="mini">1</div><h3>Upstream</h3><h4>Partner selection & due diligence</h4><p>Rigorous selection of regulated asset managers and banks, plus mandate & fee negotiations.</p></div>
+                <div class="method-card"><div class="mini">2</div><h3>Execution</h3><h4>Delivered by regulated partners</h4><p>Clients mandate execution directly to regulated managers. true. does not transmit orders and does not intervene in investment decisions.</p></div>
+                <div class="method-card"><div class="mini">3</div><h3>Downstream</h3><h4>Technical audits & consolidated supervision</h4><p>Mandate compliance, performance vs. benchmark, fee/cost audits, consolidated reporting and risk monitoring.</p></div>
               </div>
             </div>
           </div>
 
-          <div class="family-section">
-            <div class="family-title-center">
-              <div class="eyebrow">What We Deliver</div>
+          <div class="section-tight">
+            <div class="section-head" style="text-align:center">
+              <div class="eyebrow" style="justify-content:center">What We Deliver</div>
               <h2 class="title-md">Family-office grade coordination</h2>
-              <p class="body" style="margin-top:14px;">We design the architecture, coordinate the right specialists, and supervise the full ecosystem — so everything stays aligned.</p>
+              <p class="body" style="margin:14px auto 0 auto;max-width:920px">We design the architecture, coordinate the right specialists, and supervise the full ecosystem — so everything stays aligned.</p>
             </div>
             <div class="family-grid">
-              <div class="family-card-light">
-                <div class="icon"></div>
-                <h3>Wealth structuring & international life architecture</h3>
-                <p>Cross-border coordination, relocation, governance setup, and asset protection architecture — executed via legal and tax partners.</p>
-              </div>
-              <div class="family-card-light">
-                <div class="icon"></div>
-                <h3>Investment ecosystem supervision (we audit those who manage)</h3>
-                <p>Consolidation across public/private/real assets; forensic fee audits; performance and mandate compliance reviews via regulated technical partners.</p>
-              </div>
-              <div class="family-card-light">
-                <div class="icon"></div>
-                <h3>Entrepreneurial strategy & transaction support</h3>
-                <p>Debt structuring frameworks, bank negotiations, transaction coordination, investment readiness narrative — executed with regulated advisors, accountants and counsel.</p>
-              </div>
-              <div class="family-card-light">
-                <div class="icon"></div>
-                <h3>Governance, succession & next-generation readiness</h3>
-                <p>Family charters, councils, contingency planning, and structured financial education for heirs.</p>
-              </div>
+              <div class="family-card"><div class="icon"></div><h3>Wealth structuring & international life architecture</h3><p>Cross-border coordination, relocation, governance setup, and asset protection architecture — executed via legal and tax partners.</p></div>
+              <div class="family-card"><div class="icon"></div><h3>Investment ecosystem supervision (we audit those who manage)</h3><p>Consolidation across public/private/real assets; forensic fee audits; performance and mandate compliance reviews via regulated technical partners.</p></div>
+              <div class="family-card"><div class="icon"></div><h3>Entrepreneurial strategy & transaction support</h3><p>Debt structuring frameworks, bank negotiations, transaction coordination, investment readiness narrative — executed with regulated advisors, accountants and counsel.</p></div>
+              <div class="family-card"><div class="icon"></div><h3>Governance, succession & next-generation readiness</h3><p>Family charters, councils, contingency planning, and structured financial education for heirs.</p></div>
             </div>
 
             <div class="diff-grid">
-              <div class="diff-main">
-                <h3>Independence by design</h3>
-                <p>No product pushing. No commissions. No custody. true. is paid exclusively by the client — so oversight stays objective.</p>
-                <div class="check-grid">
-                  <div>Open-architecture partner selection</div>
-                  <div>Forensic fee & cost audits</div>
-                  <div>Mandate compliance monitoring</div>
-                  <div>Consolidated reporting & oversight</div>
-                </div>
-              </div>
-              <div class="launchpad">
-                <div class="icon" style="width:32px;height:32px;border-radius:8px;background:#ece7db"></div>
-                <h3>Luxembourg as a launchpad</h3>
-                <p>For entrepreneurs expanding in Europe, we coordinate market entry strategy and connect you with the right institutional partners.</p>
-              </div>
+              <div class="diff-main"><h3>Independence by design</h3><p>No product pushing. No commissions. No custody. true. is paid exclusively by the client — so oversight stays objective.</p><div class="check-grid"><div>Open-architecture partner selection</div><div>Forensic fee & cost audits</div><div>Mandate compliance monitoring</div><div>Consolidated reporting & oversight</div></div></div>
+              <div class="launchpad"><div class="icon"></div><h3>Luxembourg as a launchpad</h3><p>For entrepreneurs expanding in Europe, we coordinate market entry strategy and connect you with the right institutional partners.</p></div>
             </div>
 
             <div class="reg-note"><strong>Regulatory note:</strong> true. provides strategic coordination and supervision only. Regulated investment services (advice, portfolio management, execution, insurance, legal/tax) are delivered exclusively by authorized third-party partners under direct client mandate.</div>
@@ -540,18 +501,9 @@
               <h2 class="title-md">Navigate public affairs and institutional relations</h2>
               <p class="body" style="margin-top:14px;max-width:980px;">We support entrepreneurs and families entering Luxembourg by opening the right institutional doors, structuring access to public stakeholders, and aligning public and private decision-makers.</p>
               <div class="red-grid">
-                <div class="mini-card">
-                  <h4>Institutional relations</h4>
-                  <p>Smooth market entry with support across ministries, regulators, public agencies, and private-sector decision makers.</p>
-                </div>
-                <div class="mini-card">
-                  <h4>Public funding & grants</h4>
-                  <p>Identification and coordination of grants and subsidies for innovative companies establishing in Luxembourg.</p>
-                </div>
-                <div class="mini-card">
-                  <h4>Project funding</h4>
-                  <p>Support for fair and timely equity and debt funding in coordination with banks, investors, and institutions.</p>
-                </div>
+                <div class="mini-card"><h4>Institutional relations</h4><p>Smooth market entry with support across ministries, regulators, public agencies, and private-sector decision makers.</p></div>
+                <div class="mini-card"><h4>Public funding & grants</h4><p>Identification and coordination of grants and subsidies for innovative companies establishing in Luxembourg.</p></div>
+                <div class="mini-card"><h4>Project funding</h4><p>Support for fair and timely equity and debt funding in coordination with banks, investors, and institutions.</p></div>
               </div>
             </div>
 
@@ -565,39 +517,21 @@
       </div>
     </section>
 
-    <section id="view-team" class="view section-light">
+    <section id="view-team" class="view team-section">
       <div class="section">
         <div class="container team-layout">
           <div class="team-intro">
-            <div class="eyebrow">Our Expertise</div>
+            <div class="eyebrow" style="color:#6f6f6f;">Our Expertise</div>
             <h1 class="title-lg" style="max-width:360px;">The performance squad</h1>
             <p class="title-md" style="font-size:clamp(24px,2vw,34px);line-height:1.15;letter-spacing:-.03em;margin-top:16px;max-width:390px;">A culture of integrity, trust, and discretion. Our dedicated professionals bring decades of specialized knowledge to your corner.</p>
           </div>
           <div class="team-list">
-            <div class="team-card">
-              <div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Tom Rasqué"></div><div class="team-meta"><h3>Tom Rasqué</h3><p>Managing Partner and Founder true.industries</p></div></div>
-              <div class="team-bio"><p>20+ years of experience in wealth management, private banking & financial marketing. Tom advocates for financial literacy & conflict-free advisory to empower athletes beyond their careers. He has held senior roles at major banking groups and institutions, driving significant business inflows and building high-value client propositions.</p><div class="tags"><span class="tag">Financial empowerment</span><span class="tag">Family office services</span><span class="tag">International life</span><span class="tag">Branding & Communication</span><span class="tag">Leadership</span></div></div>
-            </div>
-            <div class="team-card">
-              <div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Sébastien Murer"></div><div class="team-meta"><h3>Sébastien Murer</h3><p>Director Investments, Founder true.financialadvisory</p></div></div>
-              <div class="team-bio"><p>12+ years of experience in asset management, private equity, and regulatory compliance. Former Head of Portfolio Management & Conducting Officer. Sebastien specializes in bridging technical actuarial modeling with high-level financial strategy and risk assessment.</p><div class="tags"><span class="tag">Asset allocation</span><span class="tag">Investments</span><span class="tag">Risk Analysis</span><span class="tag">Private Equity</span><span class="tag">Private Debt</span></div></div>
-            </div>
-            <div class="team-card">
-              <div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Matej Kraus"></div><div class="team-meta"><h3>Matej Kraus</h3><p>Sports Business Strategist true.industries</p></div></div>
-              <div class="team-bio"><p>10+ years of experience in sports marketing, fan engagement, and sponsorship strategy. Former Marketing Innovation Manager at Czech Ice Hockey Association. Matej brings a strong focus on sustainable fan engagement and creating long-term impact for sports organizations.</p><div class="tags"><span class="tag">Marketing Innovation</span><span class="tag">Sponsorship</span><span class="tag">Fan Engagement</span></div></div>
-            </div>
-            <div class="team-card">
-              <div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Loïc Bertoli"></div><div class="team-meta"><h3>Loïc Bertoli</h3><p>Director Business Diplomacy</p></div></div>
-              <div class="team-bio"><p>Senior advisor with 20+ years of experience supporting families, founders, and investors across Europe, the Middle East, and Asia. Former Deputy Ambassador to the UAE and China and Deputy Director General at the Luxembourg Ministry of the Economy. Specialized in navigating complex regulatory environments, institutional relations, and cross-border market entry.</p><div class="tags"><span class="tag">Business diplomacy</span><span class="tag">Institutional relations</span><span class="tag">Public affairs</span><span class="tag">Cross-border strategy</span></div></div>
-            </div>
-            <div class="team-card">
-              <div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Bruno Tisserant Thomasset"></div><div class="team-meta"><h3>Bruno Tisserant Thomasset</h3><p>Chief Legal Officer</p></div></div>
-              <div class="team-bio"><p>20+ years of legal and governance experience supporting international families, entrepreneurs, and complex cross-border structures. Bruno specializes in legal architecture for family wealth platforms, governance frameworks, trusts, foundations, and strategic direct investments with strong expertise in ESG and long-term family continuity.</p><div class="tags"><span class="tag">Legal structuring</span><span class="tag">Family governance</span><span class="tag">Trusts & foundations</span><span class="tag">ESG strategy</span><span class="tag">Due diligence</span></div></div>
-            </div>
-            <div class="team-card">
-              <div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Maxence Geoffroy"></div><div class="team-meta"><h3>Maxence Geoffroy</h3><p>Chief Operating Officer</p></div></div>
-              <div class="team-bio"><p>Senior executive focused on operational excellence, governance discipline, and internal control within complex wealth and family office environments. Maxence oversees budgeting, reporting, compliance, and risk management while supporting strategic execution and coordination across key client relationships.</p><div class="tags"><span class="tag">Operations</span><span class="tag">Governance</span><span class="tag">Risk management</span><span class="tag">Compliance</span><span class="tag">Internal control</span></div></div>
-            </div>
+            <div class="team-card"><div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Tom Rasqué"></div><div class="team-meta"><h3>Tom Rasqué</h3><p>Managing Partner and Founder true.industries</p></div></div><div class="team-bio"><p>20+ years of experience in wealth management, private banking & financial marketing. Tom advocates for financial literacy & conflict-free advisory to empower athletes beyond their careers. He has held senior roles at major banking groups and institutions, driving significant business inflows and building high-value client propositions.</p><div class="tags"><span class="tag">Financial empowerment</span><span class="tag">Family office services</span><span class="tag">International life</span><span class="tag">Branding & Communication</span><span class="tag">Leadership</span></div></div></div>
+            <div class="team-card"><div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Sébastien Murer"></div><div class="team-meta"><h3>Sébastien Murer</h3><p>Director Investments, Founder true.financialadvisory</p></div></div><div class="team-bio"><p>12+ years of experience in asset management, private equity, and regulatory compliance. Former Head of Portfolio Management & Conducting Officer. Sebastien specializes in bridging technical actuarial modeling with high-level financial strategy and risk assessment.</p><div class="tags"><span class="tag">Asset allocation</span><span class="tag">Investments</span><span class="tag">Risk Analysis</span><span class="tag">Private Equity</span><span class="tag">Private Debt</span></div></div></div>
+            <div class="team-card"><div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Matej Kraus"></div><div class="team-meta"><h3>Matej Kraus</h3><p>Sports Business Strategist true.industries</p></div></div><div class="team-bio"><p>10+ years of experience in sports marketing, fan engagement, and sponsorship strategy. Former Marketing Innovation Manager at Czech Ice Hockey Association. Matej brings a strong focus on sustainable fan engagement and creating long-term impact for sports organizations.</p><div class="tags"><span class="tag">Marketing Innovation</span><span class="tag">Sponsorship</span><span class="tag">Fan Engagement</span></div></div></div>
+            <div class="team-card"><div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Loïc Bertoli"></div><div class="team-meta"><h3>Loïc Bertoli</h3><p>Director Business Diplomacy</p></div></div><div class="team-bio"><p>Senior advisor with 20+ years of experience supporting families, founders, and investors across Europe, the Middle East, and Asia. Former Deputy Ambassador to the UAE and China and Deputy Director General at the Luxembourg Ministry of the Economy. Specialized in navigating complex regulatory environments, institutional relations, and cross-border market entry.</p><div class="tags"><span class="tag">Business diplomacy</span><span class="tag">Institutional relations</span><span class="tag">Public affairs</span><span class="tag">Cross-border strategy</span></div></div></div>
+            <div class="team-card"><div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Bruno Tisserant Thomasset"></div><div class="team-meta"><h3>Bruno Tisserant Thomasset</h3><p>Chief Legal Officer</p></div></div><div class="team-bio"><p>20+ years of legal and governance experience supporting international families, entrepreneurs, and complex cross-border structures. Bruno specializes in legal architecture for family wealth platforms, governance frameworks, trusts, foundations, and strategic direct investments with strong expertise in ESG and long-term family continuity.</p><div class="tags"><span class="tag">Legal structuring</span><span class="tag">Family governance</span><span class="tag">Trusts & foundations</span><span class="tag">ESG strategy</span><span class="tag">Due diligence</span></div></div></div>
+            <div class="team-card"><div class="team-left"><div class="photo"><img src="tom-rasque.png" alt="Maxence Geoffroy"></div><div class="team-meta"><h3>Maxence Geoffroy</h3><p>Chief Operating Officer</p></div></div><div class="team-bio"><p>Senior executive focused on operational excellence, governance discipline, and internal control within complex wealth and family office environments. Maxence oversees budgeting, reporting, compliance, and risk management while supporting strategic execution and coordination across key client relationships.</p><div class="tags"><span class="tag">Operations</span><span class="tag">Governance</span><span class="tag">Risk management</span><span class="tag">Compliance</span><span class="tag">Internal control</span></div></div></div>
           </div>
         </div>
       </div>
@@ -607,9 +541,9 @@
       <div class="contact-shell section">
         <div class="container contact-wrap">
           <div class="section-head" style="text-align:center;">
-            <div class="eyebrow" style="justify-content:center">Contact</div>
-            <h2 class="title-lg">Start The Conversation</h2>
-            <p class="body" style="margin:18px auto 0 auto;max-width:700px;">Confidential. Independent. True. Whether you are an athlete, an entrepreneur, or a family — we are on your team.</p>
+            <div class="eyebrow light" style="justify-content:center">Contact</div>
+            <h2 class="title-lg" style="color:#fff">Start The Conversation</h2>
+            <p class="body light" style="margin:18px auto 0 auto;max-width:700px;">Confidential. Independent. True. Whether you are an athlete, an entrepreneur, or a family — we are on your team.</p>
           </div>
           <div class="contact-box">
             <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you. We will contact you shortly.');">
@@ -620,10 +554,7 @@
               <div class="field full"><label>Message</label><textarea placeholder="How can we help?"></textarea></div>
               <div class="field full"><button class="submit" type="submit">Send Message</button></div>
             </form>
-            <div class="contact-meta">
-              <div><strong style="display:block;color:#fff;margin-bottom:6px;">True Industries S.A.</strong>Luxembourg | Global Reach</div>
-              <div>contact@trueindustries.lu</div>
-            </div>
+            <div class="contact-meta"><div><strong style="display:block;color:#fff;margin-bottom:6px;">True Industries S.A.</strong>Luxembourg | Global Reach</div><div>contact@trueindustries.lu</div></div>
           </div>
         </div>
       </div>
@@ -635,9 +566,7 @@
   <script>
     const views = ['home','athletes','families','team','contact'];
     function setActiveButtons(view){
-      document.querySelectorAll('.nav-btn').forEach(btn=>{
-        btn.classList.toggle('active', btn.dataset.view===view);
-      });
+      document.querySelectorAll('.nav-btn').forEach(btn=>btn.classList.toggle('active', btn.dataset.view===view));
     }
     function navigateTo(view){
       views.forEach(v=>document.getElementById('view-'+v).classList.toggle('active', v===view));
@@ -647,6 +576,47 @@
     }
     document.querySelectorAll('.nav-btn').forEach(btn=>btn.addEventListener('click', ()=>navigateTo(btn.dataset.view)));
     function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('show'); }
+
+    function formatEUR(value){
+      return new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(value);
+    }
+
+    function calcLumpSum(){
+      const principal = parseFloat(document.getElementById('lumpPrincipal').value) || 0;
+      const gross = parseFloat(document.getElementById('lumpReturn').value) || 0;
+      const fees = parseFloat(document.getElementById('lumpFees').value) || 0;
+      const net = (gross - fees) / 100;
+      const y10 = principal * Math.pow(1 + net, 10);
+      const y30 = principal * Math.pow(1 + net, 30);
+      document.getElementById('lump10').textContent = formatEUR(y10);
+      document.getElementById('lump30').textContent = formatEUR(y30);
+    }
+
+    function calcMonthly(){
+      const monthly = parseFloat(document.getElementById('monthlyContribution').value) || 0;
+      const gross = parseFloat(document.getElementById('monthlyReturn').value) || 0;
+      const fees = parseFloat(document.getElementById('monthlyFees').value) || 0;
+      const netMonthly = ((gross - fees) / 100) / 12;
+      const fv = (payment, rate, months) => rate === 0 ? payment * months : payment * ((Math.pow(1 + rate, months) - 1) / rate);
+      document.getElementById('monthly10').textContent = formatEUR(fv(monthly, netMonthly, 120));
+      document.getElementById('monthly30').textContent = formatEUR(fv(monthly, netMonthly, 360));
+    }
+
+    function runTool(type){
+      const prompts = {
+        decoder: { input: document.getElementById('decoderInput').value.trim(), output: document.getElementById('decoderOutput'), fallback: 'This is a UI-ready placeholder. Insert your Gemini API call here to explain athlete finance terms in plain English.' },
+        legacy: { input: document.getElementById('legacyInput').value.trim(), output: document.getElementById('legacyOutput'), fallback: 'This is a UI-ready placeholder. Insert your Gemini API call here to generate second-career or business ideas.' },
+        spin: { input: document.getElementById('spinInput').value.trim(), output: document.getElementById('spinOutput'), fallback: 'This is a UI-ready placeholder. Insert your Gemini API call here to generate media talking points.' }
+      };
+      const item = prompts[type];
+      if(!item.input){ item.output.textContent = 'Please enter some text first.'; return; }
+      item.output.textContent = item.fallback + '
+
+Input captured: ' + item.input;
+    }
+
+    calcLumpSum();
+    calcMonthly();
   </script>
 </body>
 </html>
