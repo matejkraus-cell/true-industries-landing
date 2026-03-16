@@ -317,6 +317,17 @@
               <a href="#lifecycle" class="btn-outline">Explore The Path</a>
             </div>
           </div>
+               <div class="hero-side-panel">
+            <div class="status-panel">
+              <div>
+                <div class="eyebrow light" style="margin-bottom:8px">Status</div>
+                <div class="title-md" style="margin-bottom:18px;text-transform:uppercase">Game On</div>
+                <div class="status-tags"><span class="pill">Asset Management</span><span class="pill">Risk Protection</span><span class="pill">Tax Optimization</span></div>
+              </div>
+              <div class="quote-box">“Treat your wealth like your sport”</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="section-light section">
@@ -393,6 +404,35 @@
         </div>
       </div>
 
+        <div class="section-light section">
+        <div class="container">
+          <div class="section-head">
+            <div class="eyebrow">Powered By Gemini AI</div>
+            <h2 class="title-lg">Locker Room Tech</h2>
+            <p class="body" style="margin-top:18px;">Smart tools to decode your finances and build your future.</p>
+          </div>
+          <div class="cards-3">
+            <div class="light-card tool-card"><h3>The Playbook Decoder</h3><p>Confused by a contract clause or financial term? Paste it here to get a plain English explanation.</p><textarea id="decoderInput" placeholder="e.g. Force majeure, annuity due, image rights..."></textarea><button class="tool-btn" onclick="runTool('decoder')" type="button">Translate</button><div class="tool-output" id="decoderOutput">Paste a term or clause and the output will appear here. Insert your Gemini API logic later if needed.</div></div>
+            <div class="light-card tool-card"><h3>Legend Legacy Builder</h3><p>Thinking about your 2nd career? Tell us your interests, and we'll generate business ideas for you.</p><textarea id="legacyInput" placeholder="e.g. fitness, coffee, racing, media, coaching..."></textarea><button class="tool-btn" onclick="runTool('legacy')" type="button">Generate Ideas</button><div class="tool-output" id="legacyOutput">Describe interests and future ideas will appear here. Replace with Gemini API later if desired.</div></div>
+            <div class="light-card tool-card"><h3>The Spin Doctor</h3><p>Prepare for the press. Tell us the situation, and we'll generate professional talking points.</p><textarea id="spinInput" placeholder="e.g. team lost the final, transfer rumors, injury return..."></textarea><button class="tool-btn" onclick="runTool('spin')" type="button">Draft Statement</button><div class="tool-output" id="spinOutput">Enter a media scenario and draft talking points will appear here. Replace with Gemini API later if desired.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-off section">
+        <div class="container">
+          <div class="section-head">
+            <div class="eyebrow">Calculators</div>
+            <h2 class="title-lg">Financial Simulators</h2>
+            <p class="body" style="margin-top:18px;">Use simple scenario tools to understand the long-term impact of capital growth and disciplined monthly saving.</p>
+          </div>
+          <div class="calculator-grid">
+            <div class="light-card calculator-card"><h3>Investment Reality Check</h3><p>At your performance level, how much will your capital grow?</p><div class="calc-fields"><input type="number" id="lumpPrincipal" placeholder="Starting Capital (€)" value="100000"><input type="number" id="lumpReturn" placeholder="Gross Return (%)" value="7" step="0.1"><input type="number" id="lumpFees" placeholder="Fees (%)" value="1" step="0.1"></div><button class="calc-btn" onclick="calcLumpSum()" type="button">Calculate</button><div class="calc-results"><div class="result-box"><div class="k">Value After 10 Years</div><div class="v" id="lump10">—</div></div><div class="result-box"><div class="k">Value After 30 Years</div><div class="v" id="lump30">—</div></div></div></div>
+            <div class="light-card calculator-card"><h3>The Monthly Grind</h3><p>Consistency wins championships. See the power of monthly contributions.</p><div class="calc-fields"><input type="number" id="monthlyContribution" placeholder="Monthly Savings (€)" value="500"><input type="number" id="monthlyReturn" placeholder="Gross Return (%)" value="7" step="0.1"><input type="number" id="monthlyFees" placeholder="Fees (%)" value="1" step="0.1"></div><button class="calc-btn" onclick="calcMonthly()" type="button">Calculate</button><div class="calc-results"><div class="result-box"><div class="k">Value After 10 Years</div><div class="v" id="monthly10">—</div></div><div class="result-box"><div class="k">Value After 30 Years</div><div class="v" id="monthly30">—</div></div></div></div>
+          </div>
+        </div>
+      </div>
+      
       <div class="section-light section">
         <div class="container">
           <div class="section-head">
